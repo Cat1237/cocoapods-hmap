@@ -22,7 +22,6 @@ module HMap
     def initialize(path)
       raise ArgumentError, "#{path}: no such file" unless File.file?(path)
 
-      puts "Reader mapfile path: #{path}"
       @filename = path
       @raw_data = File.open(@filename, 'rb', &:read)
       populate_fields
@@ -88,7 +87,7 @@ module HMap
     def description
       sum = "  Header map: #{filename}\n" + header.description
       bucktes.each_with_index do |buckte_h, index|
-        sum += "\t- Bucket: #{index}" + buckte_h.values[0].description unless buckte_h.nil?
+        sum += "\t- Bucket: #{index}" + Utils.safe_encode(buckte_h.values[0].description, 'UTF-8') unless buckte_h.nil?
         sum
       end
       sum

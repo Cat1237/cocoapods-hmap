@@ -58,6 +58,18 @@ plugin 'cocoapods-mapfile'
 
 Every time you execute pod install or pod update, `cocoapods-mapfile` will automatically generate a `header map file` for you and modify `HEAD_SEARCH_PATHS`.
 
+### Option && Flags
+
+`hmap-gen/hmap-writer`:
+
+- `--project-directory=/project/dir/`: The path to the root of the project directory.
+- `--nosave-origin-header-search-paths`: This option will not save xcconfig origin [HEADER_SEARCH_PATHS] and put `hmap file path` first.
+- `--clean-hmap`: This option will clean up all `hmap-gen/hmap-writer` setup for hmap.
+
+`hmap-reader`:
+
+- `--hmap-path=/hmap/dir/file`: The path of the hmap file.
+
 ## Command Line Tool
 
 Installing the 'cocoapods-mapfile' gem will also install two command-line tool `hmap_reader` and `hmap-writer` which you can use to generate header map file and read hmap file.

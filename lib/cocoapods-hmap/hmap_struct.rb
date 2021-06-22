@@ -132,9 +132,12 @@ module HMap
     def bucket_to_string(headers, index)
       bucket = [key, perfix, suffix]
       bucket.inject('') do |sum, arg|
-        sum unless headers[arg].nil?
-        @str_ins[arg] = headers[arg] = sum.length + index
-        sum + "#{Utils.safe_encode(arg, 'ASCII-8BIT')}\0"
+        if headers[arg].nil?
+          headers[arg] = sum.length + index
+          sum += "#{Utils.safe_encode(arg, 'ASCII-8BIT')}\0"
+        end
+        @str_ins[arg] = headers[arg]
+        sum
       end
     end
 

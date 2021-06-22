@@ -5,7 +5,7 @@ require 'cocoapods-hmap/command/hmap_reader'
 
 module Pod
   module CocoaPodsHMapHook
-    HooksManager.register('cocoapods-hmap', :post_install) do
+    HooksManager.register('cocoapods-mapfile', :post_install) do
       Command::HMapGen.run(["--project-directory=#{Config.instance.installation_root}"])
     end
   end

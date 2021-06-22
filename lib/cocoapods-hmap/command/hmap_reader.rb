@@ -5,8 +5,8 @@ require 'cocoapods'
 
 module Pod
   class Command
+    # hmap file reader cmd
     class HMapReader < Command
-
       self.summary = 'Read mapfile and puts result.'
 
       self.description = <<-DESC
@@ -22,7 +22,7 @@ module Pod
       def validate!
         super
         banner! if help?
-        raise "[ERROR]: --hmap-path no set".red unless File.exist?(@mapfile_path)
+        raise '[ERROR]: --hmap-path no set'.red unless File.exist?(@mapfile_path)
       end
 
       def self.options
