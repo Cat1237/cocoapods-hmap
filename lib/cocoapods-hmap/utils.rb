@@ -93,7 +93,7 @@ module HMap
       save_origin_build_setting = "SAVE_#{build_setting}"
       hmap_build_setting = "HMAP_PODS_#{build_setting}"
       origin_build_setting = xc.attributes[build_setting]
-      unless origin_build_setting.include?(hmap_build_setting)
+      unless !origin_build_setting.nil? && origin_build_setting.include?(hmap_build_setting)
         xc.attributes[save_origin_build_setting] =
           origin_build_setting
       end

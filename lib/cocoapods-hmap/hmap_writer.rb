@@ -34,7 +34,7 @@ module HMap
       return if clean_hmap
 
       @save_origin_header_search_paths = save_origin_header_search_paths
-      gen_mapfil(targets, pod_targets, hmap_dir)
+      gen_mapfile(targets, pod_targets, hmap_dir)
     end
 
     private
@@ -55,7 +55,7 @@ module HMap
       end
     end
 
-    def gen_mapfil(targets, pod_targets, hmap_d)
+    def gen_mapfile(targets, pod_targets, hmap_d)
       puts('Inspecting targets to integrate ')
       merge_all_target_public_mapfile(targets, hmap_d)
       create_each_target_mapfile(pod_targets, hmap_d)
