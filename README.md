@@ -4,7 +4,7 @@
 
 A CocoaPods plugin which can gen/read header map file.
 
-hmap-gen is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
+**hmap-gen** is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
 as well as generates a public and private header map file for each referenced component.
 
 A hmap file includes three types of headers:
@@ -13,7 +13,7 @@ A hmap file includes three types of headers:
     - <module/header.h> **based on podspec**
     - <project_name/header.h> **based on podspec**
 
-At the same time, hmap-reader can read the header, bucktes, string_table information saved in the header map file.
+At the same time, **hmap-reader** can read the header, bucktes, string_table information saved in the header map file.
 
 - ✅ It can read hmap file.
 
