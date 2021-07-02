@@ -12,6 +12,16 @@ module HMap
       num != 0 && (num & (num - 1)).zero?
     end
 
+    def self.next_power_of_two(num)
+      num |= (num >> 1)
+      num |= (num >> 2)
+      num |= (num >> 4)
+      num |= (num >> 8)
+      num |= (num >> 16)
+      num |= (num >> 32)
+      num + 1
+    end
+
     def self.hash_set_value(hash, *args)
       args.each do |arg|
         hash.merge(arg)

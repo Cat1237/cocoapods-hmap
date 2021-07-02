@@ -7,6 +7,7 @@ module Pod
   class Command
     # hmap file gen cmd
     class HMapGen < Command
+      # summary
       self.summary = 'Analyzes the dependencies and gen each dependencie mapfile.'
 
       self.description = <<-DESC
@@ -30,6 +31,7 @@ module Pod
         verify_podfile_exists!
       end
 
+      # help
       def self.options
         [
           ['--project-directory=/project/dir/', 'The path to the root of the project

@@ -205,16 +205,38 @@ module HMap
     def initialize(buckets)
       super()
       count = buckets.count
-      num_buckets = count < 8 ? 8 : 2**Math.log2(count).ceil
-      @header = populate_hmap_header(num_buckets, count)
-      @buckets = add_bucket(buckets, num_buckets)
+      nums = num_buckets(count, Utils.next_power_of_two(count))
+      entries = entries(count, nums)
+      p "#{nums}-----#{entries}"
+      @header = populate_hmap_header(nums, entries)
+      @buckets = add_bucket(buckets, nums)
+    end
+
+    def num_buckets(count, pow2)
+      if count < 8
+        pow2 <<= 1 if count * 4 >= pow2 * 3
+        pow2 < 8 ? 8 : pow2
+      else
+        index = count > 341 ? 2 : -3
+        padding = count / 85 % 7 + index
+        Utils.next_power_of_two(count * 3 + padding)
+      end
+    end
+
+    def entries(count, nums)
+      return count if nums == 8
+
+      last_pow = nums >> 1
+      index = last_pow < 1024 ? 3 : -2
+      count - (last_pow + 1 + index) / 3 + 1 + last_pow
     end
 
     # @return [String] the serialized fields of the mafile
     def serialize
       @header.serialize + @buckets.inject('') do |sum, bucket|
         sum += if bucket.nil?
-                 [0, 0, 0].pack('L<3')
+                  empty_b = [HEADER_CONST[:HMAP_EMPTY_BUCKT_KEY]]*3
+                  empty_b.pack('L<3')
                else
                  bucket
                end
