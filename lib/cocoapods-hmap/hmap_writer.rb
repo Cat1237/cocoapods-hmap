@@ -105,7 +105,7 @@ module HMap
       method = method(:from_header_mappings_by_file_accessor)
       hmap_name = 'All-Pods-All-Header-hmap.hmap'
       single_target_mapfile(pod_targets, hmap_dir, hmap_name, method, :source_files)
-      change_target_xcconfig_header_search_path([hmap_name], true, *pod_targets)
+      change_target_xcconfig_header_search_path([hmap_name], false, *pod_targets)
     end
 
     def create_each_target_mapfile(pod_targets, hmap_dir)
