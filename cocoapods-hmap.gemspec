@@ -16,7 +16,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/Cat1237/cocoapods-hmap.git"
   spec.license       = 'MIT'
   spec.files         = %w[README.md LICENSE] + Dir['lib/**/*.rb']
-  # spec.bindir        = 'bin'
   spec.executables   = %w(hmap_reader hmap_writer)
   spec.require_paths = ['lib']
 

@@ -207,7 +207,6 @@ module HMap
       count = buckets.count
       nums = num_buckets(count, Utils.next_power_of_two(count))
       entries = entries(count, nums)
-      p "#{nums}-----#{entries}"
       @header = populate_hmap_header(nums, entries)
       @buckets = add_bucket(buckets, nums)
     end

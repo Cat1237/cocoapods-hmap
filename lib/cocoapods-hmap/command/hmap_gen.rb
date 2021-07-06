@@ -36,8 +36,7 @@ module Pod
         [
           ['--project-directory=/project/dir/', 'The path to the root of the project
             directory'],
-          ['--nosave-origin-header-search-paths', 'This option will not save xcconfig origin
-          [HEADER_SEARCH_PATHS] and put hmap file first'],
+          ['--nosave-origin-header-search-paths', 'This option will not save xcconfig origin [HEADER_SEARCH_PATHS] and put hmap file first'],
           ['--clean-hmap', 'This option will clean up all hmap-gen setup for hmap.']
         ].concat(super)
       end

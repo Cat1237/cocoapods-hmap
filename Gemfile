@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 group :debugging do
-  gem 'ruby-debug-ide'
-  gem 'debase'
-  gem 'cocoapods', path: '/Users/ws/Desktop/VIP课程/强化班/第二十四节、Ruby高级库使用/完成代码/cocoapods调试/CocoaPods'
+  gem 'debase', '~> 0.2.4.1'
+  gem 'ruby-debug-ide', '~> 0.7.2'
+  gem 'cocoapods'
 end

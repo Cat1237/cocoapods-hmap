@@ -6,6 +6,7 @@ module HMap
   require_relative 'cocoapods-hmap/view'
   require_relative 'cocoapods-hmap/hmap_struct'
   require_relative 'cocoapods-hmap/utils'
+  require_relative 'cocoapods-hmap/pods_helper'
   require_relative 'cocoapods-hmap/exceptions'
 
   autoload :MapFileReader, 'cocoapods-hmap/hmap_reader'

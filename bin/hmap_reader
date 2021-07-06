@@ -9,5 +9,4 @@ end
 
 require 'cocoapods-hmap/command/hmap_reader'
 
-Pod::Command::HMapReader::run(ARGV)
-
+Pod::Command::HMapReader.run(ARGV)

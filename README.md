@@ -7,11 +7,12 @@ A CocoaPods plugin which can gen/read header map file.
 **hmap-gen** is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
 as well as generates a public and private header map file for each referenced component.
 
-A hmap file includes three types of headers:
+A hmap file includes four types of headers:
 
     - header.h
     - <module/header.h> **based on podspec**
     - <project_name/header.h> **based on podspec**
+    - <podspec source header/**/header.h> **based on podspec**
 
 At the same time, **hmap-reader** can read the header, bucktes, string_table information saved in the header map file.
 
@@ -52,6 +53,12 @@ $ pod hmap-gen
 # write the hmap file to /project/dir/Pods/Headers/HMap
 $ pod hmap-gen --project-directory=/project/dir/
 
+# write the hmap file to /project/dir/Pods/Headers/HMap and no save origin [HEADER_SEARCH_PATHS]
+$ pod hmap-gen --project-directory=/project/dir/ --nosave-origin-header-search-paths
+
+# cleanup the hmap file
+$ pod hmap-gen --clean-hmap
+
 # read the hmap file from /hmap/dir/file
 $ pod hmap-reader --hmap-path=/hmap/dir/file
 ```
@@ -60,6 +67,10 @@ At same time, you can put this line in your podfile:
 
 ```rb
 plugin 'cocoapods-mapfile'
+```
+This was equl:
+```rb
+pod hmap-gen --project-directory=/project/dir/ --nosave-origin-header-search-paths
 ```
 
 Every time you execute pod install or pod update, `cocoapods-mapfile` will automatically generate a `header map file` for you and modify `HEAD_SEARCH_PATHS`.

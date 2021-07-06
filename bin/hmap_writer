@@ -8,7 +8,4 @@ end
 
 require 'cocoapods-hmap/command/hmap_gen'
 
-
 Pod::Command::HMapGen.run(ARGV)
-
-

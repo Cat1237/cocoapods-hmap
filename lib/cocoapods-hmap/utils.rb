@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require 'cocoapods'
+
 module HMap
   # A collection of utility functions used throughout cocoapods-hmap.
   module Utils
+    HEADER_EXTENSIONS = Pod::Sandbox::FileAccessor::HEADER_EXTENSIONS
+
     def self.index_of_range(num, range)
       num &= range - 1
       num
@@ -131,12 +135,6 @@ module HMap
       xc.attributes['USE_HEADERMAP'] = 'YES'
       xc.save_as(path)
       puts "\t   clean finish."
-    end
-
-    def self.pod_analyze(config)
-      podfile = Pod::Podfile.from_file(config.podfile_path)
-      lockfile = Pod::Lockfile.from_file(config.lockfile_path)
-      Pod::Installer::Analyzer.new(config.sandbox, podfile, lockfile).analyze
     end
   end
 end
