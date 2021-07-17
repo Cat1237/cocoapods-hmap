@@ -107,12 +107,12 @@ module HMap
       save_origin_build_setting = "SAVE_#{build_setting}"
       hmap_build_setting = "HMAP_PODS_#{build_setting}"
       origin_build_setting = xc.attributes[build_setting]
-      unless !origin_build_setting.nil? && origin_build_setting.include?(hmap_build_setting)
+      if !origin_build_setting.nil? && !origin_build_setting.include?(hmap_build_setting)
         xc.attributes[save_origin_build_setting] =
           origin_build_setting
       end
-
-      value = "#{value} ${#{save_origin_build_setting}}" if save_origin
+      save_origin_build_setting_value = xc.attributes[save_origin_build_setting]
+      value = "#{value} ${#{save_origin_build_setting}}" if save_origin && !save_origin_build_setting_value.nil?
       xc.attributes[hmap_build_setting] = value
       xc.attributes[build_setting] = "${#{hmap_build_setting}}"
       yield(xc) if block_given?
@@ -123,18 +123,15 @@ module HMap
       xc = Xcodeproj::Config.new(path)
       save_origin_build_setting = "SAVE_#{build_setting}"
       hmap_build_setting = "HMAP_PODS_#{build_setting}"
-      origin_build_setting = xc.attributes[save_origin_build_setting]
-      puts "\t -xcconfig path: #{path}"
-      if origin_build_setting.nil?
-        puts "\t   don't have #{save_origin_build_setting} in xcconfig file.".red
-        return
-      end
-      xc.attributes[build_setting] = origin_build_setting
+      return if xc.attributes[hmap_build_setting].nil?
+
+      xc.attributes[build_setting] = xc.attributes[save_origin_build_setting]
       xc.attributes.delete(save_origin_build_setting)
       xc.attributes.delete(hmap_build_setting)
       xc.attributes['USE_HEADERMAP'] = 'YES'
+      xc.attributes.delete(build_setting) if xc.attributes[build_setting].nil?
       xc.save_as(path)
-      puts "\t   clean finish."
+      puts "\t -xcconfig path: #{path} clean finish."
     end
   end
 end

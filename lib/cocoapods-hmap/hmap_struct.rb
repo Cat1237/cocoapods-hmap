@@ -210,7 +210,7 @@ module HMap
       @header = populate_hmap_header(nums, entries)
       @buckets = add_bucket(buckets, nums)
     end
-
+    
     def num_buckets(count, pow2)
       if count < 8
         pow2 <<= 1 if count * 4 >= pow2 * 3

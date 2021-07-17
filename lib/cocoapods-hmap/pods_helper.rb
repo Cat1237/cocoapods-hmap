@@ -38,6 +38,34 @@ module HMap
         end.compact
       end
 
+      def self.header_mappings(file_accessor, headers, target)
+        consumer = file_accessor.spec_consumer
+        header_mappings_dir = consumer.header_mappings_dir
+        dir = target.headers_sandbox
+        dir_h = Pathname.new(target.product_module_name)
+        dir += consumer.header_dir if consumer.header_dir
+        mappings = {}
+        headers.each do |header|
+          next if header.to_s.include?('.framework/')
+
+          sub_dir = [dir, dir_h]
+          if header_mappings_dir
+            relative_path = header.relative_path_from(file_accessor.path_list.root + header_mappings_dir)
+            sub_dir << dir + relative_path.dirname
+            sub_dir << dir_h + relative_path.dirname
+          else
+            relative_path = header.relative_path_from(file_accessor.path_list.root)
+            sub_dir << relative_path.dirname
+          end
+          mappings[header] ||= []
+          sub_dir.uniq.each do |d|
+            mappings[header] << d + header.basename
+          end
+          mappings[header] << header.basename
+        end
+        mappings
+      end
+
       def self.pod_target_source_header(target, hmap_t)
         target.header_mappings_by_file_accessor.keys.flat_map do |key|
           paths_for_attribute(key, hmap_t)

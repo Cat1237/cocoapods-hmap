@@ -62,28 +62,38 @@ module HMap
     end
 
     def from_header_mappings_by_file_accessor(header_h, buckets, target, hmap_type)
-      hmap_s = 'headers'
-      hmap_s = "#{HMMAP_TYPE[hmap_type]}_#{hmap_s}" unless hmap_type == :source_files
-      headers = target.header_mappings_by_file_accessor.keys.flat_map(&hmap_s.to_sym)
-      s_headers = Helper::Pods.pod_target_source_header_map(target, hmap_type)
+      hmap_t = hmap_type == :source_files ? 'headers' : "#{HMMAP_TYPE[hmap_type]}_headers"
+      valid_accessors = target.file_accessors.reject { |fa| fa.spec.non_library_specification? }
+      headers = valid_accessors.each_with_object({}) do |file_accessor, sum|
+        # Private headers will always end up in Pods/Headers/Private/PodA/*.h
+        # This will allow for `""` imports to work.
+        type_header = file_accessor.method(hmap_t.to_sym).call
+        Helper::Pods.header_mappings(file_accessor, type_header, target).each do |key, value|
+          sum[key] ||= []
+          sum[key] += value
+        end
+      end
+
+      if target.build_as_framework?
+        headers[target.prefix_header_path] = [target.prefix_header_path.basename]
+        headers[target.umbrella_header_path] = [target.umbrella_header_path.basename]
+      end
       headers.each_with_object(buckets) do |header_f, sum|
-        keys = header_perfix(target, header_f, s_headers)
-        sum[0] += header_to_hash(keys, header_h, sum[0].length, sum[1])
+        keys = header_perfix(*header_f)
+        sum[0] += header_to_hash(keys, header_h, *sum)
       end
     end
 
-    def header_perfix(target, file, s_headers)
-      key = file.basename.to_s
-      project_name = "#{target.project_name}/#{file.basename}"
-      product_module_name = "#{target.product_module_name}/#{file.basename}"
+    def header_perfix(file, keys)
       perfix = "#{file.dirname}/"
-      keys = [key, project_name, product_module_name] + (s_headers[key].nil? ? [] : s_headers[key])
-      keys.compact.uniq.inject([]) do |sum, name|
-        sum << [name, perfix, key]
+      suffix = file.basename.to_s
+      keys.inject([]) do |sum, name|
+        sum << [name.to_s, perfix, suffix]
       end
     end
 
     def header_to_hash(keys, headers, index, buckets)
+      index = index.length
       keys.inject('') do |sum, bucket|
         buckte = HMapBucketStr.new(*bucket)
         string_t = buckte.bucket_to_string(headers, index + sum.length)
@@ -95,9 +105,9 @@ module HMap
     def merge_all_target_public_mapfile(targets, hmap_dir)
       method = method(:from_header_mappings_by_file_accessor)
       targets.each do |target|
-        hmap_name = "All-Pods-Public-#{target.name}-hmap.hmap"
+        hmap_name = "All-Public-#{target.name}-hmap.hmap"
         single_target_mapfile(target.pod_targets, hmap_dir, hmap_name, method)
-        change_target_xcconfig_header_search_path([hmap_name], true, *targets)
+        change_target_xcconfig_header_search_path([hmap_name], true, target)
       end
     end
 
