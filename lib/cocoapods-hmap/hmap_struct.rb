@@ -169,7 +169,7 @@ module HMap
   # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
   # @abstract
   class HMapBucket < HMapStructure
-    attr_accessor :key, :perfix, :suffix
+    attr_accessor :key, :perfix, :suffix, :uuid
 
     SIZEOF = 12
     FORMAT = 'L=3'

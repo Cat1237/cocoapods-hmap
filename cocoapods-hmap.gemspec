@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/Cat1237/cocoapods-hmap.git"
   spec.license       = 'MIT'
   spec.files         = %w[README.md LICENSE] + Dir['lib/**/*.rb']
-  spec.executables   = %w(hmap_reader hmap_writer)
+  spec.executables   = %w[hmap_reader hmap_writer]
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 2.1'
@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
 
   spec.add_dependency 'cocoapods', '>=  1.6'
+  spec.add_runtime_dependency 'yaml-vfs', '>= 0.0.1'
   spec.required_ruby_version = '>= 2.5'
 end
