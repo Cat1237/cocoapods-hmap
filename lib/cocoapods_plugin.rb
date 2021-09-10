@@ -7,7 +7,7 @@ module Pod
   # hook
   module CocoaPodsHMapHook
     HooksManager.register('cocoapods-mapfile', :post_install) do
-      Command::HMapGen.run(["--project-directory=#{Config.instance.installation_root}", "--nosave-origin-header-search-paths"])
+      Command::HMapGen.run(["--project-directory=#{Config.instance.installation_root}"])
     end
   end
 end

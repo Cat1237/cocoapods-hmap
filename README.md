@@ -7,6 +7,11 @@ A CocoaPods plugin which can gen/read header map file.
 **hmap-gen** is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
 as well as generates a public and private header map file for each referenced component.
 
+    - `<header.h>` : -I<hmap file path>
+    - `header.h` : iquote <hmap file path>
+
+For framework, use [yaml-vfs](https://github.com/Cat1237/yaml-vfs) create VFS file to map framework Headers and Modules dir and pass VFS file to `-ivfsoverlay` parameter.
+
 A hmap file includes four types of headers:
 
     - header.h
@@ -70,7 +75,7 @@ plugin 'cocoapods-mapfile'
 ```
 This was equl:
 ```rb
-pod hmap-gen --project-directory=/project/dir/ --nosave-origin-header-search-paths
+pod hmap-gen --project-directory=/project/dir/ 
 ```
 
 Every time you execute pod install or pod update, `cocoapods-mapfile` will automatically generate a `header map file` for you and modify `HEAD_SEARCH_PATHS`.

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# require 'cocoapods-hmap/view'
-
 module HMap
   HEADER_CONST = {
     HMAP_HEADER_MAGIC_NUMBER: 0x686d6170,
@@ -114,57 +112,6 @@ module HMap
       }.merge super
     end
   end
-
-  # HMapBucketStr => HMapBucket.
-  # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
-  # @abstract
-  class HMapBucketStr
-    attr_reader :uuid, :key, :perfix, :suffix
-
-    def initialize(key, perfix, suffix)
-      @uuid = Utils.string_downcase_hash(key)
-      @key = key
-      @perfix = perfix
-      @suffix = suffix
-      @str_ins = {}
-    end
-
-    def bucket_to_string(headers, index)
-      bucket = [key, perfix, suffix]
-      bucket.inject('') do |sum, arg|
-        if headers[arg].nil?
-          headers[arg] = sum.length + index
-          sum += "#{Utils.safe_encode(arg, 'ASCII-8BIT')}\0"
-        end
-        @str_ins[arg] = headers[arg]
-        sum
-      end
-    end
-
-    def bucket
-      HMapBucket.new(@str_ins[@key], @str_ins[@perfix], @str_ins[@suffix])
-    end
-
-    # @return [String] the serialized fields of the mafile
-    def serialize
-      bucket.serialize
-    end
-
-    def description
-      <<-DESC
-        Key #{@key} -> Prefix #{@perfix}, Suffix #{@suffix}
-      DESC
-    end
-
-    def to_h
-      {
-        'key' => { 'index' => str_ins[@key], 'key' => @key },
-        'perfix' => { 'index' => str_ins[@perfix], 'perfix' => @perfix },
-        'suffix' => { 'index' => str_ins[@suffix], 'suffix' => @suffix }
-      }
-    end
-  end
-
   # HMapBucket structure.
   # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
   # @abstract

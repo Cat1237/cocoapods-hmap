@@ -5,7 +5,27 @@ require 'cocoapods'
 module HMap
   # A collection of utility functions used throughout cocoapods-hmap.
   module Utils
-    HEADER_EXTENSIONS = Pod::Sandbox::FileAccessor::HEADER_EXTENSIONS
+    # Converts the symbolic name of a platform to a string name suitable to be
+    # presented to the user.
+    #
+    # @param  [Symbol] symbolic_name
+    #         the symbolic name of a platform.
+    #
+    # @return [String] The string that describes the name of the given symbol.
+    #
+    def self.effective_platform_name(symbolic_name)
+      case symbolic_name
+      when :ios then %w[iphoneos iphonesimulator]
+      when :osx then %w[macosx]
+      when :watchos then %w[watchos watchsimulator]
+      when :tvos then %w[appletvos appletvsimulator]
+      else []
+      end
+    end
+
+    def self.effective_platforms_names(platforms)
+      platforms.flat_map { |name| effective_platform_name(name) }.compact.uniq
+    end
 
     def self.index_of_range(num, range)
       num &= range - 1
@@ -72,47 +92,7 @@ module HMap
         c.force_encoding(target_encoding)
       })
     end
-
-    def self.clean_hmap(clean_hmap, *targets)
-      return clean_hmap unless clean_hmap
-
-      FileUtils.rm_rf(Helper::Pods.hmap_files_dir)
-      targets.each do |tg|
-        clean_target_build_setting(tg)
-      end
-      clean_hmap
-    end
-
-    def self.target_xcconfig_path(targets)
-      targets.each do |target|
-        raise ClassIncludedError.new(target.class, Pod::Target) unless target.is_a?(Pod::Target)
-
-        config_h = Pod::Target.instance_method(:build_settings).bind(target).call
-        config_h.each_key do |configuration_name|
-          xcconfig = target.xcconfig_path(configuration_name)
-          yield(xcconfig, target) if block_given?
-        end
-      end
-    end
-
-    def self.clean_target_build_setting(targets, _build_setting = nil)
-      target_xcconfig_path(targets) do |xc, _|
-        c = HMap::XcodeprojHelper.new(xc)
-        c.clean_hmap_xcconfig_other_c_flags_and_save
-        puts "\t -xcconfig path: #{xc} clean finish."
-      end
-    end
-
-    def self.change_target_xcconfig_build_settings(hmap_h, targets, use_headermap: false, save_origin: true)
-      target_xcconfig_path(targets) do |xc, target|
-        c = HMap::XcodeprojHelper.new(xc)
-        c.change_xcconfig_other_c_flags_and_save(hmap_h, target.build_as_framework?, use_headermap: use_headermap,
-                                                                                     save_origin: save_origin)
-      end
-    end
   end
 end
 
-# HEADER_SEARCH_PATHS = ${HMAP_PODS_HEADER_SEARCH_PATHS}
-# HMAP_PODS_HEADER_SEARCH_PATHS = -iquote "${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-generated-files.hmap" -I"${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-own-target-headers.hmap" -I"${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-all-non-framework-target-headers.hmap" -iquote "${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-project-headers.hmap"
-# HMAP_PODS_OTHER_CFLAGS = $(inherited) -ivfsoverlay ${PODS_ROOT}/Headers/HMap/vfs/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/all-product-headers.yaml
+

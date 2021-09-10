@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
 module HMap
+  # hmap bucket
+  class HMapBucketStr
+    attr_reader :key, :perfix, :suffix
+
+    def initialize(key, perfix, suffix)
+      @key = key
+      @perfix = perfix
+      @suffix = suffix
+    end
+
+    def description
+      <<-DESC
+        Key #{@key} -> Prefix #{@perfix}, Suffix #{@suffix}
+      DESC
+    end
+  end
   # hmap file reader
   class MapFileReader
     # @return [String, nil] the filename loaded from, or nil if loaded from a binary
