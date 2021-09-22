@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'cocoapods-hmap/command/hmap_gen'
-require 'cocoapods-hmap/command/hmap_reader'
+require 'hmap/command/hmap_gen'
+require 'hmap/command/hmap_reader'
 
 module Pod
   # hook

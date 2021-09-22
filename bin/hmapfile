@@ -6,6 +6,6 @@ if $PROGRAM_NAME == __FILE__
   require 'bundler/setup'
 end
 
-require 'cocoapods-hmap/command/hmap_gen'
+require 'hmap'
 
-Pod::Command::HMapGen.run(ARGV)
+HMap::Command.run(ARGV)

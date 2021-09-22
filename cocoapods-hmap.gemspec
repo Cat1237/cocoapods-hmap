@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "#{File.dirname(__FILE__)}/lib/cocoapods_hmap"
+require "#{File.dirname(__FILE__)}/lib/hmap"
 
 Gem::Specification.new do |spec|
   spec.name          = 'cocoapods-mapfile'
-  spec.version       = CocoapodsHMap::VERSION
+  spec.version       = HMap::VERSION
   spec.authors       = ['Cat1237']
   spec.email         = ['wangson1237@outlook.com']
 
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/Cat1237/cocoapods-hmap.git"
   spec.license       = 'MIT'
   spec.files         = %w[README.md LICENSE] + Dir['lib/**/*.rb']
-  spec.executables   = %w[hmap_reader hmap_writer]
+  spec.executables   = %w[hmapfile]
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 2.1'
@@ -25,6 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
 
   spec.add_dependency 'cocoapods', '>=  1.6'
-  spec.add_runtime_dependency 'yaml-vfs', '>= 0.0.1'
+  spec.add_runtime_dependency 'yaml-vfs', '>= 0.0.3'
   spec.required_ruby_version = '>= 2.5'
 end

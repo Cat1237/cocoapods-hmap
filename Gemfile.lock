@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    cocoapods-mapfile (0.2.0)
+    cocoapods-mapfile (0.2.1)
       cocoapods (>= 1.6)
-      yaml-vfs (>= 0.0.1)
+      yaml-vfs (>= 0.0.3)
 
 GEM
   remote: https://rubygems.org/

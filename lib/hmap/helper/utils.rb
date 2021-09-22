@@ -1,7 +1,5 @@
 # frozen_string_literal: false
 
-require 'cocoapods'
-
 module HMap
   # A collection of utility functions used throughout cocoapods-hmap.
   module Utils
@@ -94,5 +92,3 @@ module HMap
     end
   end
 end
-
-

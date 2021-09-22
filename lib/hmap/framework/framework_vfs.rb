@@ -1,5 +1,8 @@
+require 'yaml_vfs'
+
 module HMap
   module Target
+    # Each fremaework vfs informations
     class FrameworkEntry
       attr_reader :configuration, :platform, :app_build_dir, :project_temp_dir
       attr_accessor :headers_real_paths, :modules_real_paths
@@ -40,16 +43,15 @@ module HMap
         has_private_module = module_path.glob('module*.modulemap').length > 1
         e_headers = ->(path, *names) { names.inject(Pathname(path)) { |e, n| e.join(n) } }
         @headers_real_paths += headers
-        @headers_real_paths << e_headers.call(app_build_dir, 'Headers',
-                                                   "#{framework_name}-Swift.h")
+        @headers_real_paths << e_headers.call(app_build_dir, 'Headers', "#{framework_name}-Swift.h")
         @modules_real_paths << e_headers.call(project_temp_dir, 'module.modulemap')
-        if has_private_module
-          @modules_real_paths << e_headers.call(entry.project_temp_dir,
-                                                     'module.private.modulemap')
-        end
+        return unless has_private_module
+
+        @modules_real_paths << e_headers.call(entry.project_temp_dir, 'module.private.modulemap')
       end
     end
 
+    # A collection of Each FrameworkEntrys
     class FrameworkVFS
       attr_reader :entrys
 
@@ -75,17 +77,14 @@ module HMap
         vfs_path.select { |k, _| k.include?(key) }
       end
 
-      def write(path = nil)
+      def write(path)
         vfs_path.each do |key, values|
           es = values.map do |value|
-            headers_real_paths = value.headers_real_paths
-            modules_real_paths = value.modules_real_paths
-            VFS::FileCollectorEntry.new(Pathname(value.app_build_dir), modules_real_paths, headers_real_paths)
+            VFS::FileCollectorEntry.new(Pathname(value.app_build_dir), value.modules_real_paths,
+                                        value.headers_real_paths)
           end
           fc = VFS::FileCollector.new(es)
-          pa = Helper::Pods.vfs_files_dir.join(key)
-          pa = File.join(path, key) unless path.nil?
-          pa = Pathname(pa)
+          pa = path.join(key)
           pa.mkpath unless pa.exist?
           fc.write_mapping(pa)
         end

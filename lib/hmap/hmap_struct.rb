@@ -65,7 +65,7 @@ module HMap
   # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
   # @abstract
   class HMapHeader < HMapStructure
-    # @return [HMap::HMapView, nil] the raw view associated with the load command,
+    # @return [HMap::HMapHeader, nil] the raw view associated with the load command,
     #  or nil if the HMapHeader was created via {create}.
     attr_reader :num_entries, :magic, :version, :reserved, :strings_offset, :num_buckets, :max_value_length
 

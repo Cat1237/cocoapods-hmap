@@ -1,17 +1,21 @@
 # frozen_string_literal: false
 
-require 'cocoapods_hmap'
-require 'cocoapods'
+require 'hmap'
 
-module Pod
+module HMap
   class Command
     # hmap file reader cmd
-    class HMapReader < Command
+    class Reader < Command
       self.summary = 'Read mapfile and puts result.'
 
       self.description = <<-DESC
       Read mapfile and puts result, header, buckets, string_table.
       DESC
+
+      self.arguments = [
+        # framework_p, r_header, r_m
+        CLAide::Argument.new('--hmap-path', true)
+      ]
 
       def initialize(argv)
         super
@@ -21,7 +25,7 @@ module Pod
 
       def validate!
         super
-        banner! if help?
+        # banner! if help?
         raise '[ERROR]: --hmap-path no set'.red unless File.exist?(@mapfile_path)
       end
 
@@ -32,10 +36,9 @@ module Pod
       end
 
       def run
-        UI.section "\n[hmap-reader] start..............\n".yellow do
-          HMap::MapFileReader.new(@mapfile_path)
-        end
-        UI.puts("\n[hmap-reader] finish..............\n".yellow)
+        puts "\n[hmap-reader] start..............\n".yellow
+        HMap::MapFileReader.new(@mapfile_path)
+        puts "\n[hmap-reader] finish..............\n".yellow
       end
     end
   end

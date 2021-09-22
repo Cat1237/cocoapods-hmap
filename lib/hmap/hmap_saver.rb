@@ -4,6 +4,12 @@ module HMap
   class HMapSaver
     attr_reader :string_table, :buckets, :headers
 
+    def self.new_from_buckets(buckets)
+      saver = new
+      saver.add_to_buckets(buckets)
+      saver
+    end
+
     def initialize
       @string_table = "\0"
       @buckets = []
@@ -32,11 +38,15 @@ module HMap
       headers[key]
     end
 
-    def add_to_buckets(*buckets)
+    def add_to_bucket(buckets)
       values = buckets.map { |key| add_to_headers(key) }
       bucket = HMapBucket.new(*values)
       bucket.uuid = Utils.string_downcase_hash(buckets.first)
       @buckets << bucket
+    end
+
+    def add_to_buckets(buckets)
+      buckets.each { |bucket| add_to_bucket(bucket) }
     end
 
     def write_to(path)

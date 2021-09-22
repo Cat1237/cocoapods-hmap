@@ -17,6 +17,7 @@ module HMap
       DESC
     end
   end
+
   # hmap file reader
   class MapFileReader
     # @return [String, nil] the filename loaded from, or nil if loaded from a binary
