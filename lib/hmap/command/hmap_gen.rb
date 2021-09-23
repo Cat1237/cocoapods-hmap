@@ -17,7 +17,7 @@ module Pod
         super
         project_directory = argv.option('project-directory')
         targets = argv.option('allow-targets') || ''
-        @allow_targets = targets.split(/{,\s*}/)
+        @allow_targets = targets.split(%r{,\s*})
         @no_use_build_in_headermap = !argv.flag?('fno-use-origin-headermap', false)
         @save_origin_build_setting = !argv.flag?('fno-save-origin', false)
         @clean_hmap = argv.flag?('clean-hmap', false)
@@ -35,11 +35,10 @@ module Pod
       # help
       def self.options
         [
-          ['--project-directory=/project/dir/', 'The path to the root of the project
-            directory'],
+          ['--project-directory=/project/dir/', 'The path to the root of the project directory'],
           ['--allow-targets=target, target1, target2', 'If we set --fno-use-origin-headermap and ' \
             '--fno-save-origin, we can use this option to decide which targets to use hmap file while keeping the initial settings'],
-          ['--nosave-origin-header-search-paths',
+          ['--fno-save-origin',
            'This option will not save xcconfig origin [HEADER_SEARCH_PATHS] and put hmap file first'],
           ['--fno-use-origin-headermap',
            'This option will use  Xcode built-in options Use Header Maps and not use this code gen hmap file'],

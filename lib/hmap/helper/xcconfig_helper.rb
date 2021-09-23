@@ -12,20 +12,17 @@ module HMap
       @xcconfig = Xcodeproj::Config.new(xcconfig_path)
     end
 
-    def change_xcconfig_other_c_flags_and_save(values, use_headermap: false, save_origin: false)
+    def change_hmap_build_setting_and_save(values, use_headermap: false, save_origin: false)
       ocf = values[BuildSettingConstants::OTHER_CFLAGS]
       ocppf = values[BuildSettingConstants::OTHER_CPLUSPLUSFLAGS]
-      change_xcconfig_build_setting(BuildSettingConstants::OTHER_CFLAGS, ocf, true) unless ocf.nil?
-      cplusplus = has_build_setting(BuildSettingConstants::OTHER_CPLUSPLUSFLAGS)
-      if cplusplus && !ocppf.nil?
-        change_xcconfig_build_setting(BuildSettingConstants::OTHER_CPLUSPLUSFLAGS, ocppf, true)
-      end
+      change_xcconfig_build_setting(BuildSettingConstants::OTHER_CFLAGS, ocf, true)
+      change_xcconfig_build_setting(BuildSettingConstants::OTHER_CPLUSPLUSFLAGS, ocppf, true) if  build_setting?(BuildSettingConstants::OTHER_CPLUSPLUSFLAGS)
       change_xcconfig_build_setting(BuildSettingConstants::USE_HEADERMAP, 'NO', false) unless use_headermap
       build_settings = [BuildSettingConstants::HEAD_SEARCH_PATHS, BuildSettingConstants::USER_HEADER_SEARCH_PATHS]
       if save_origin
         clean_hmap_build_settings_to_xcconfig(build_settings)
       else
-        save_build_setting_to_xcconfigs(build_settings)
+        save_build_settings_to_xcconfig(build_settings)
       end
       save_to_path
     end
@@ -37,6 +34,8 @@ module HMap
     end
 
     def change_xcconfig_build_setting(build_setting_key, setting, save_origin)
+      return if setting.nil?
+
       save_origin_build_setting = save_build_setting_to_xcconfig(build_setting_key)
       value = setting
       value = "#{value} ${#{save_key(build_setting_key)}}" if save_origin && !save_origin_build_setting.nil?
@@ -59,10 +58,12 @@ module HMap
       @xcconfig.attributes[save_key(key)]
     end
 
-    def clean_hmap_xcconfig_other_c_flags_and_save
-      clean_hmap_build_setting_to_xcconfig(OTHER_CFLAGS)
-      clean_hmap_build_setting_to_xcconfig(HEAD_SEARCH_PATHS)
-      @xcconfig.attributes['USE_HEADERMAP'] = 'YES'
+    def clean_hmap_build_setting_and_save
+      clean_hmap_build_setting_to_xcconfig(BuildSettingConstants::OTHER_CFLAGS)
+      clean_hmap_build_setting_to_xcconfig(BuildSettingConstants::OTHER_CPLUSPLUSFLAGS)
+      clean_hmap_build_setting_to_xcconfig(BuildSettingConstants::HEAD_SEARCH_PATHS)
+      clean_hmap_build_setting_to_xcconfig(BuildSettingConstants::USER_HEADER_SEARCH_PATHS)
+      clean_hmap_build_setting_to_xcconfig(BuildSettingConstants::USE_HEADERMAP)
       save_to_path
     end
 
@@ -73,6 +74,10 @@ module HMap
 
     def clean_hmap_build_setting_to_xcconfig(build_setting)
       save_origin_build_setting = @xcconfig.attributes[save_key(build_setting)]
+      origin_build_setting = @xcconfig.attributes[build_setting]
+      if save_origin_build_setting.nil? && !origin_build_setting.nil? && origin_build_setting.include?(hmap_key(build_setting))
+        @xcconfig.attributes.delete(build_setting)
+      end
       @xcconfig.attributes[build_setting] = save_origin_build_setting unless save_origin_build_setting.nil?
       @xcconfig.attributes.delete(hmap_key(build_setting))
       @xcconfig.attributes.delete(save_key(build_setting))
@@ -85,7 +90,7 @@ module HMap
 
     private
 
-    def has_build_setting(key)
+    def build_setting?(key)
       !@xcconfig.attributes[key].nil?
     end
 

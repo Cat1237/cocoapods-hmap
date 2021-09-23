@@ -81,15 +81,16 @@ module HMap
       return clean_hmap unless clean_hmap
 
       FileUtils.rm_rf(Pods.hmap_files_dir)
-      targets.each { |target| clean_other_c_flags_build_setting(target) }
+      targets.each { |target| clean_hmap_build_setting(target, log: true) }
       clean_hmap
     end
 
-    def self.clean_other_c_flags_build_setting(targets)
+    def self.clean_hmap_build_setting(targets, log: false)
+      puts 'Clean build setting: '.blue if log
       targets.each do |target|
         xcconfig_path_from(target) do |xcconfig|
-          HMap::XcodeprojHelper.new(xcconfig).clean_hmap_xcconfig_other_c_flags_and_save
-          puts "\t -xcconfig path: #{xcconfig} clean finish."
+          HMap::XcodeprojHelper.new(xcconfig).clean_hmap_build_setting_and_save
+          puts "\t -xcconfig path: #{xcconfig} clean finish." if log
         end
       end
     end

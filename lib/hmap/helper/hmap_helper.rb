@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'Set'
+require 'set'
 
 module HMap
   # HMap file information
@@ -51,9 +51,9 @@ module HMap
   class HMapHeaders
     def initialize
       @public_headers = HMapHeaderEntry.new(:i_headers)
-      @public_e_headers = HMapHeaderEntry.new(:iextra_headers)
+      @public_headers_e = HMapHeaderEntry.new(:iextra_headers)
       @private_headers = HMapHeaderEntry.new(:iquote_headers)
-      @private_e_headers = HMapHeaderEntry.new(:extra_headers)
+      @private_headers_e = HMapHeaderEntry.new(:extra_headers)
       @unqi_headers = Set.new
     end
 
@@ -62,11 +62,11 @@ module HMap
     end
 
     def public_headers
-      [@public_headers, @public_e_headers]
+      [@public_headers, @public_headers_e]
     end
 
     def private_headers
-      [@private_headers, @private_e_headers]
+      [@private_headers, @private_headers_e]
     end
 
     def private_setting_for_reference(path, name)
@@ -111,23 +111,24 @@ module HMap
         case type
         when :private_header_files, :public_header_files
           @public_headers.add_header([header_name, header_module_name, header_name]) if type == :public_header_files
-          @public_e_headers.add_header([header_module_path, header_dir, header_name])
+          @public_headers_e.add_header([header_module_path, header_dir, header_name])
           @private_headers.add_header([header_name, header_module_name, header_name])
           unless header_relative_path == header_module_path || header_relative_path == header_name
-            @private_e_headers.add_header([header_relative_path, header_dir, header_name])
+            @private_headers_e.add_header([header_relative_path, header_dir, header_name])
           end
           unless header_last_dir_name == header_module_path
-            @private_e_headers.add_header([header_last_dir_name, header_dir, header_name])
+            @private_headers_e.add_header([header_last_dir_name, header_dir, header_name])
           end
         when :source_files
-          @private_e_headers.add_header([header_name, header_dir, header_name])
-          @private_e_headers.add_header([header_last_dir_name, header_dir, header_name])
-          @private_e_headers.add_header([header_relative_path, header_dir, header_name])
+          @private_headers_e.add_header([header_name, header_dir, header_name])
+          @private_headers_e.add_header([header_last_dir_name, header_dir, header_name])
+          @private_headers_e.add_header([header_relative_path, header_dir, header_name])
         end
       end
     end
   end
 
+  # Gen hmap file and vfs file
   class HMapHelper
     attr_reader :i_headers, :iquote_headers, :directory, :framework_entrys, :headers
 
@@ -147,14 +148,6 @@ module HMap
       end
     end
 
-    def i_headers_name(name)
-      directory.join("#{name}.hmap")
-    end
-
-    def iquote_headers_name
-      directory.join("#{name}-iquote.hmap")
-    end
-
     def write_vfsfiles(name = '')
       return if framework_entrys.empty?
 
@@ -169,40 +162,44 @@ module HMap
       write_hmapfile(hmap_name)
     end
 
-    def add_framework_entry(configurations, platforms, name, framework_name, module_path, headers)
+    def add_framework_entry(configurations, platforms,
+                            name, framework_name, module_path, headers)
       entry = Target::FrameworkEntry.new_entrys_from_configurations_platforms(configurations, platforms, name,
                                                                               framework_name, module_path, headers)
       @framework_entrys += entry
-    end
-
-    def xcconfig_header_setting(is_framework, path = nil, name = nil)
-      xcconfig_hmap_setting(is_framework, name, path)
-    end
-
-    def xcconfig_hmap_setting(is_framework, name = nil, path = nil)
-      setting = {}
-      i_s = @headers.public_setting_for_options(path, name)
-      iquote = @headers.private_setting_for_options(path, name)
-      setting[BuildSettingConstants::OTHER_CFLAGS] =
-        setting[BuildSettingConstants::OTHER_CPLUSPLUSFLAGS] = [BuildSettingConstants::INGERITED, i_s].join(' ')
-      if is_framework
-        vfs_setting = "-ivfsoverlay' \"#{path}/vfs/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/all-product-headers.yaml\""
-        setting.merge!({ BuildSettingConstants::OTHER_CFLAGS => vfs_setting,
-                         BuildSettingConstants::OTHER_CPLUSPLUSFLAGS => vfs_setting }) do |_, oldval, newval|
-          [oldval, newval].join(' ')
-        end
-      end
-      setting.merge!({ BuildSettingConstants::OTHER_CFLAGS => iquote,
-                       BuildSettingConstants::OTHER_CPLUSPLUSFLAGS => iquote }) do |_, oldval, newval|
-        [oldval, newval].join(' ')
-      end
     end
 
     def header_mappings(headers, headers_sandbox, module_name, type)
       @headers.add_headers(type, headers, module_name, headers_sandbox)
     end
 
+    def xcconfig_header_setting(is_framework, path = nil, name = nil)
+      i_s = @headers.public_setting_for_options(path, name)
+      setting_values = [[BuildSettingConstants::INGERITED, i_s].join(' ')]
+      setting_values << xcconfig_vfs_setting(path) if is_framework
+      setting_values << @headers.private_setting_for_options(path, name)
+      setting_values.each_with_object({}) do |value, setting|
+        setting.merge!({
+                         BuildSettingConstants::OTHER_CFLAGS => value,
+                         BuildSettingConstants::OTHER_CPLUSPLUSFLAGS => value
+                       }) { |_, oldval, newval| [oldval, newval].join(' ') }
+      end
+    end
+
     private
+
+    def xcconfig_vfs_setting(path)
+      path = directory if path.nil?
+      "-ivfsoverlay \"#{path}/vfs/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/all-product-headers.yaml\""
+    end
+
+    def i_headers_name(name)
+      directory.join("#{name}.hmap")
+    end
+
+    def iquote_headers_name
+      directory.join("#{name}-iquote.hmap")
+    end
 
     def hmap_write_headers_to_path(path, headers)
       return if headers.empty?

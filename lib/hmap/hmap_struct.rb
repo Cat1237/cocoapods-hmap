@@ -112,6 +112,7 @@ module HMap
       }.merge super
     end
   end
+
   # HMapBucket structure.
   # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
   # @abstract
@@ -157,7 +158,7 @@ module HMap
       @header = populate_hmap_header(nums, entries)
       @buckets = add_bucket(buckets, nums)
     end
-    
+
     def num_buckets(count, pow2)
       if count < 8
         pow2 <<= 1 if count * 4 >= pow2 * 3
@@ -181,8 +182,8 @@ module HMap
     def serialize
       @header.serialize + @buckets.inject('') do |sum, bucket|
         sum += if bucket.nil?
-                  empty_b = [HEADER_CONST[:HMAP_EMPTY_BUCKT_KEY]]*3
-                  empty_b.pack('L<3')
+                 empty_b = [HEADER_CONST[:HMAP_EMPTY_BUCKT_KEY]] * 3
+                 empty_b.pack('L<3')
                else
                  bucket
                end

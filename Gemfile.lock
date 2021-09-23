@@ -1,14 +1,15 @@
 PATH
   remote: .
   specs:
-    cocoapods-mapfile (0.2.1)
+    cocoapods-mapfile (0.2.2)
       cocoapods (>= 1.6)
       yaml-vfs (>= 0.0.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (3.0.3)
+    CFPropertyList (3.0.4)
+      rexml
     activesupport (6.1.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
@@ -22,10 +23,10 @@ GEM
       json (>= 1.5.1)
     atomos (0.1.3)
     claide (1.0.3)
-    cocoapods (1.11.0)
+    cocoapods (1.11.2)
       addressable (~> 2.8)
       claide (>= 1.0.2, < 2.0)
-      cocoapods-core (= 1.11.0)
+      cocoapods-core (= 1.11.2)
       cocoapods-deintegrate (>= 1.0.3, < 2.0)
       cocoapods-downloader (>= 1.4.0, < 2.0)
       cocoapods-plugins (>= 1.0.0, < 2.0)
@@ -40,7 +41,7 @@ GEM
       nap (~> 1.0)
       ruby-macho (>= 1.0, < 3.0)
       xcodeproj (>= 1.21.0, < 2.0)
-    cocoapods-core (1.11.0)
+    cocoapods-core (1.11.2)
       activesupport (>= 5.0, < 7)
       addressable (~> 2.8)
       algoliasearch (~> 1.0)
@@ -89,7 +90,7 @@ GEM
     nap (1.1.0)
     netrc (0.11.0)
     public_suffix (4.0.6)
-    rake (10.5.0)
+    rake (13.0.6)
     rexml (3.2.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -104,7 +105,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    ruby-debug-ide (0.7.2)
+    ruby-debug-ide (0.7.3)
       rake (>= 0.8.1)
     ruby-macho (2.5.1)
     simplecov (0.16.1)
@@ -138,13 +139,13 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  bundler (~> 2.1)
+  bundler (>= 2.1)
   cocoapods-mapfile!
-  coveralls (~> 0)
+  coveralls
   debase
-  rake (~> 10.0)
-  rspec (~> 3.0)
+  rake (>= 10.0)
+  rspec (>= 3.0)
   ruby-debug-ide
 
 BUNDLED WITH
-   2.2.21
+   2.2.3
