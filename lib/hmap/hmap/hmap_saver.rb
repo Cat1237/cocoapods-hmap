@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'hmap/hmap/hmap_struct'
+require 'hmap/hmap/mapfile'
+
 module HMap
   class HMapSaver
     attr_reader :string_table, :buckets, :headers
@@ -19,7 +22,7 @@ module HMap
     def header_to_hash(keys, headers, index, buckets)
       index = index.length
       keys.inject('') do |sum, bucket|
-        buckte = HMapBucketStr.new(*bucket)
+        buckte = BucketStr.new(*bucket)
         string_t = buckte.bucket_to_string(headers, index + sum.length)
         buckets.push(buckte)
         sum + string_t
@@ -38,10 +41,12 @@ module HMap
       headers[key]
     end
 
-    def add_to_bucket(buckets)
-      values = buckets.map { |key| add_to_headers(key) }
-      bucket = HMapBucket.new(*values)
-      bucket.uuid = Utils.string_downcase_hash(buckets.first)
+    def add_to_bucket(buckte)
+      key = add_to_headers(buckte.key)
+      perfix = add_to_headers(buckte.perfix)
+      suffix = add_to_headers(buckte.suffix)
+      bucket = HMapBucket.new(key, perfix, suffix)
+      bucket.uuid = Utils.string_downcase_hash(buckte.key)
       @buckets << bucket
     end
 
@@ -50,7 +55,7 @@ module HMap
     end
 
     def write_to(path)
-      MapFile.new(@string_table, @buckets).write(path)
+      MapFile.new(@string_table, @buckets).write(Pathname(path))
     end
   end
 end

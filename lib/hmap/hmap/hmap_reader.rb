@@ -1,23 +1,7 @@
 # frozen_string_literal: true
+require 'hmap/hmap/hmap_struct'
 
 module HMap
-  # hmap bucket
-  class HMapBucketStr
-    attr_reader :key, :perfix, :suffix
-
-    def initialize(key, perfix, suffix)
-      @key = key
-      @perfix = perfix
-      @suffix = suffix
-    end
-
-    def description
-      <<-DESC
-        Key #{@key} -> Prefix #{@perfix}, Suffix #{@suffix}
-      DESC
-    end
-  end
-
   # hmap file reader
   class MapFileReader
     # @return [String, nil] the filename loaded from, or nil if loaded from a binary
@@ -32,7 +16,7 @@ module HMap
     # @return [HMap::HMapHeader]
     attr_reader :header
 
-    # @return [Hash<HMap::HMapBucket => HMap::HMapBucketStr>] an array of the file's bucktes
+    # @return [Hash<HMap::HMapBucket => HMap::BucketStr>] an array of the file's bucktes
     # @note bucktes are provided in order of ascending offset.
     attr_reader :bucktes
 
@@ -55,7 +39,7 @@ module HMap
         bucket_s = bucket.to_a.map do |key|
           string_t[key..-1].match(/[^\0]+/)[0]
         end
-        HMapBucketStr.new(*bucket_s)
+        BucketStr.new(*bucket_s)
       end
     end
 
@@ -102,7 +86,7 @@ module HMap
 
     # description
     def description
-      sum = "  Header map: #{filename}\n" + header.description
+      sum = "  Header map path: #{filename}\n" + header.description
       bucktes.each_with_index do |buckte_h, index|
         sum += "\t- Bucket: #{index}" + Utils.safe_encode(buckte_h.values[0].description, 'UTF-8') unless buckte_h.nil?
         sum

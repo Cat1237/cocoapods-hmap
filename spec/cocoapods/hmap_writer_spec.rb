@@ -12,6 +12,3 @@ RSpec.describe 'cocoapods-hmap hmap-reader' do
   end
 end
 
-# HEADER_SEARCH_PATHS = ${HMAP_PODS_HEADER_SEARCH_PATHS}
-# HMAP_PODS_HEADER_SEARCH_PATHS = -iquote "${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-generated-files.hmap" -I"${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-own-target-headers.hmap" -I"${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-all-non-framework-target-headers.hmap" -iquote "${PODS_ROOT}/Headers/WCDB.swift.build/WCDBSwift-project-headers.hmap"
-# HMAP_PODS_OTHER_CFLAGS = $(inherited) -ivfsoverlay ${PODS_ROOT}/Headers/HMap/vfs/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/all-product-headers.yaml

@@ -6,7 +6,7 @@ module HMap
     # @return mapfile string_table
     attr_reader :string_table
 
-    # @return [Array<HMap::HMapBucketStr>] an array of the file's bucktes
+    # @return [Array<HMap::BucketStr>] an array of the file's bucktes
     # @note bucktes are provided in order of ascending offset.
     attr_reader :buckets
 

@@ -8,12 +8,14 @@ module HMap
   class Command < CLAide::Command
     require 'hmap/command/hmap_writer'
     require 'hmap/command/hmap_reader'
+    require 'hmap/command/hmap_gen'
+
 
     self.abstract_command = false
     self.command = 'hmapfile'
     self.version = VERSION
     self.description = 'Read or write header map file.'
-    self.plugin_prefixes = %w[claide writer reader]
+    self.plugin_prefixes = %w[claide writer reader gen]
 
     def initialize(argv)
       super

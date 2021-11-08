@@ -44,10 +44,10 @@ module HMap
       end
       full_command = "#{bin} #{command.join(' ')}"
 
-      if Pod::Config.instance.verbose?
+      if Resolver.instance.verbose?
         p("$ #{full_command}")
-        stdout = Indenter.new(STDOUT)
-        stderr = Indenter.new(STDERR)
+        stdout = Indenter.new($stdout)
+        stderr = Indenter.new($stderr)
       else
         stdout = Indenter.new
         stderr = Indenter.new
@@ -64,7 +64,6 @@ module HMap
           p("[!] Failed: #{full_command}".red)
         end
       end
-
       stdout
     end
 
@@ -185,8 +184,8 @@ module HMap
               output << (string << separator)
             end
           end
-        rescue EOFError, IOError
-          output << (buf << $/) unless buf.empty?
+        rescue IOError, EOFError
+          output << (buf << $RS) unless buf.empty?
         end
       end
     end

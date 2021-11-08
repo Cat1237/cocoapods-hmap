@@ -1,7 +1,5 @@
 # frozen_string_literal: false
 
-require 'hmap'
-
 module HMap
   class Command
     # hmap file reader cmd
@@ -20,7 +18,9 @@ module HMap
       def initialize(argv)
         super
         mapfile_path = argv.option('hmap-path')
-        @mapfile_path = Pathname.new(mapfile_path).expand_path unless mapfile_path.nil?
+        raise ArgumentError, "#{mapfile_path}: no such file!" if mapfile_path.nil? || !File.exist?(mapfile_path)
+
+        @mapfile_path = Pathname.new(mapfile_path).expand_path 
       end
 
       def validate!
@@ -36,9 +36,9 @@ module HMap
       end
 
       def run
-        puts "\n[hmap-reader] start..............\n".yellow
+        UserInterface.puts "\n[hmapfile] Reader start..............\n".yellow
         HMap::MapFileReader.new(@mapfile_path)
-        puts "\n[hmap-reader] finish..............\n".yellow
+        UserInterface.puts "\n[hmapfile] Reader finish..............\n".yellow
       end
     end
   end

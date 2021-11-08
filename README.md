@@ -7,19 +7,21 @@ A CocoaPods plugin which can gen/read header map file.
 **hmap-gen** is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
 as well as generates a public and private header map file for each referenced component.
 
-    - <header.h> : -I<hmap file path>
-    - "header.h" : -iquote <hmap file path>
+- <header.h> : -I<hmap file path>
+- "header.h" : -iquote <hmap file path>
 
 For framework, use [yaml-vfs](https://github.com/Cat1237/yaml-vfs) create VFS file to map framework Headers and Modules dir and pass VFS file to `-ivfsoverlay` parameter.
 
-    - vfs : -ivfsoverlay <all-product-headers.yaml>
+- vfs : -ivfsoverlay <all-product-headers.yaml>
 
 A hmap file includes four types of headers:
 
-    - header.h
-    - <module/header.h> **based on podspec**
-    - <project_name/header.h> **based on podspec**
-    - <podspec source header/**/header.h> **based on podspec**
+- "header.h"
+- <module/header.h> **based on project**
+- <project_name/header.h> **based on project**
+- <*\*/**/header.h> **based on project**
+- "*\*/**/header.h" **based on project**
+- "module/header.h" **based on project**
 
 ## Installation
 
@@ -43,52 +45,82 @@ Or install it yourself as:
 $ gem install cocoapods-mapfile
 ```
 
-## Usage
+## Quickstart
+To begin gen hmap file by opening an Xcodeproj dir, and to your command line with:
+```shell
+$ hmapfile gen
+```
+or to your podfile, add this line:
+```
+$ plugin 'cocoapods-mapfile'
+```
 
-The command should be executed in directory that contains podfile.
+
+## Command Line Tool
+
+Installing the `cocoapods-mapfile` gem will also install two command-line tool `hmapfile reader` and `hmapfile writer` which you can use to generate header map file and read hmap file.
+
+For more information consult
+- `hmapfile --help`
+- `hmapfile gen --help`
+- `hmapfile reader --help`
+- `hmapfile writer --help`
+
+### Usage
 
 ```shell
-# write the hmap file to podfile/Pods/Headers/HMap
-$ pod hmap-gen
 
-# write the hmap file to /project/dir/Pods/Headers/HMap
-$ pod hmap-gen --project-directory=/project/dir/
+# Read or write header map file.
+$ hmapfile COMMAND
 
-# write the hmap file to /project/dir/Pods/Headers/HMap and no save origin [HEADER_SEARCH_PATHS]
-$ pod hmap-gen --project-directory=/project/dir/ --nosave-origin-header-search-paths
-
-# cleanup the hmap file
-$ pod hmap-gen --clean-hmap
-
-# no keep xcconfig file [HEADER_SEARCH_PATHS] and [USER_HEADER_SEARCH_PATHS] value
-$ pod hmap-gen --fno-save-origin
-
-# ⚠️no keep xcconfig file [HEADER_SEARCH_PATHS] and [USER_HEADER_SEARCH_PATHS] value, except for the values ​​set by[--allow-targets]
-$ pod hmap-gen --fno-save-origin --allow-targets=Realm, YYKit
-
-# not use automatically generated hmap file from Xcode， use [hmap-gen]
-$ pod hmap-gen --fno-use-origin-headermap
-
-# read the hmap file from /hmap/dir/file
-$ pod hmap-reader --hmap-path=/hmap/dir/file
 ```
+
+#### Commands
+
+1. `hmapfile gen`:
+
+    - `--project-directory=/porject/dir`: Read .xcworkspace/.xcodeproj file to gen hmap files.
+    - `--clean-hmap`: Clean up hmap file settings.
+
+2. `hmapfile reader`:
+    - `--hmap-path=/hmap/dir/file`: Read this path of the hmap file.
+
+3. `hmapfile writer`:
+    - `--json-path=/project/dir/json`: The path to the hmap json data.
+    - `--output-path=/project/dir/hmap file`: The path json data to the hmap file.
+
+example：
+
+```shell
+# Read current dir .xcworkspace/.xcodeproj file to Gen hmap files.
+$ hmapfile gen
+
+# Read the specified directory .xcworkspace/.xcodeproj file to Gen hmap files.
+$ hmapfile gen --project-directory=<project path>
+
+# Clean up hmap file settings.
+$ hmapfile gen --clean-hmap
+$ hmapfile gen --project-directory=<project path> --clean-hmap
+
+$ hmapfile writer --json-path=../cat.json --output-path=../cat.hmap
+
+$ hmapfile reader --hmap-path=../cat.hmap
+```
+
+## For Cocoapods
+
+Add this line in your podfile:
 
 ```rb
 plugin 'cocoapods-mapfile'
 ```
+
 This was equl:
-```rb
-$ pod hmap-gen --project-directory=/project/dir/ 
-```
-or, you can set some value:
 
 ```rb
-plugin('cocoapods-mapfile', allow_targets: ['Realm', 'YYKit'], save_origin: false, use_origin_headermap: false)
+$ hmapfile gen --project-directory=<project path>
 ```
-This was equl:
-```rb
-$ pod hmap-gen --fno-save-origin --fno-use-origin-headermap --allow-targets=Realm, YYKit
-```
+or, you can set some value:
 
 Every time you execute pod install or pod update, `cocoapods-mapfile` will automatically generate a `header map file` for you and modify:
 - `OTHER_CPLUSPLUSFLAGS`
@@ -96,37 +128,6 @@ Every time you execute pod install or pod update, `cocoapods-mapfile` will autom
 - `USE_HEADERMAP`
 - `USER_HEADER_SEARCH_PATHS`
 - `HEAD_SEARCH_PATHS`
-
-## Command Line Tool
-
-Installing the `cocoapods-mapfile` gem will also install two command-line tool `hmapfile reader` and `hmapfile writer` which you can use to generate header map file and read hmap file.
-
-For more information consult 
-- `hmapfile --help`,
-- `hmapfile reader --help`
-- `hmapfile writer --help`
-
-### Usage
-
-```shell
-# Read or write header map file.
-$ hmapfile COMMAND
-```
-#### Commands
-`hmapfile reader`:
-- `--hmap-path=/hmap/dir/file`: Read this path of the hmap file.
-
-`hmapfile writer`:
- - `--json-path=/project/dir/json`: The path to the hmap json data.
-- `--output-path=/project/dir/hmap file`: The path json data to the hmap file.
-
-example：
-
-```shell
-hmapfile writer --json-path=../cat.json --output-path=../cat.hmap
-
-hmapfile reader --hmap-path=../cat.hmap
-```
 
 ## Contributing
 
