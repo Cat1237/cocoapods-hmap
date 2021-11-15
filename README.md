@@ -129,6 +129,12 @@ Every time you execute pod install or pod update, `cocoapods-mapfile` will autom
 - `USER_HEADER_SEARCH_PATHS`
 - `HEAD_SEARCH_PATHS`
 
+## TODO
+
+- File generation speed
+- Perfect interface
+- Optimize the code
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [cocoapods-hmap](https://github.com/Cat1237/cocoapods-hmap). This project is intended to be a safe, welcoming space for collaboration.

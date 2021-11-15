@@ -52,7 +52,7 @@ module HMap
       end
 
       def product_name
-        target.product_name
+        File.basename(full_product_name, '.*')
       end
 
       def full_product_name
