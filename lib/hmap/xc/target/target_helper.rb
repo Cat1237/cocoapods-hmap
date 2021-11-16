@@ -52,7 +52,7 @@ module HMap
       end
 
       def product_name
-        File.basename(full_product_name, '.*')
+        target.product_name.gsub(/[-]/, '_')
       end
 
       def full_product_name
