@@ -3,11 +3,12 @@ module HMap
     def self.get_groups(xct)
       groups = xct.referrers.select { |e| e.is_a?(Constants::PBXGroup) } || []
       groups += groups.flat_map { |g| get_groups(g) }
-      groups.compact.reverse
+      groups.compact
     end
 
     def self.group_paths(xct)
-      ps = get_groups(xct).map do |g|
+      gs = get_groups(xct).reverse
+      ps = gs.map do |g|
         s_hash = g.instance_variable_get('@simple_attributes_hash')
         s_hash['path'] unless s_hash.nil?
       end.compact
@@ -46,8 +47,9 @@ module HMap
         p_path = File.dirname(project.path)
         project.root_object.project_references.map do |sp|
           ff = sp[:project_ref]
+          g_path = PBXHelper.group_paths(ff)
           path = ff.instance_variable_get('@simple_attributes_hash')['path'] || ''
-          full_path = File.join(p_path, path)
+          full_path = File.join(p_path, g_path, path)
           Xcodeproj::Project.open(full_path)
         end << project
       end
