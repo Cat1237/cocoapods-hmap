@@ -1,5 +1,8 @@
 module HMap
   module PBXHelper
+    PBX_GROUP = '<group>'
+    PBX_SOURCE_ROOT = 'SOURCE_ROOT'
+    private_constant :PBX_GROUP, :PBX_SOURCE_ROOT
     def self.get_groups(xct)
       groups = xct.referrers.select { |e| e.is_a?(Constants::PBXGroup) } || []
       groups += groups.flat_map { |g| get_groups(g) }
@@ -10,7 +13,7 @@ module HMap
       gs = get_groups(xct).reverse
       ps = gs.map do |g|
         s_hash = g.instance_variable_get('@simple_attributes_hash')
-        s_hash['path'] unless s_hash.nil?
+        s_hash['path'] unless s_hash.nil? && s_hash['sourceTree'] == PBX_GROUP
       end.compact
       File.join(*ps)
     end
@@ -47,9 +50,10 @@ module HMap
         p_path = File.dirname(project.path)
         project.root_object.project_references.map do |sp|
           ff = sp[:project_ref]
-          g_path = PBXHelper.group_paths(ff)
-          path = ff.instance_variable_get('@simple_attributes_hash')['path'] || ''
-          full_path = File.join(p_path, g_path, path)
+          f_hash = ff.instance_variable_get('@simple_attributes_hash')
+          g_path = PBXHelper.group_paths(ff) if f_hash['sourceTree'] == PBX_GROUP
+          path = f_hash['path'] || ''
+          full_path = File.join(p_path, g_path || '', path)
           Xcodeproj::Project.open(full_path)
         end << project
       end

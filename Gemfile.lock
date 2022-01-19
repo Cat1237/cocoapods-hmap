@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocoapods-mapfile (0.2.5.1)
+    cocoapods-mapfile (0.2.5.2)
       claide (>= 1.0.2, < 2.0)
       xcodeproj (>= 1.19.0, < 2.0)
       yaml-vfs (>= 0.0.4)
