@@ -60,16 +60,12 @@ module HMap
         "#{project_name}.build"
       end
 
-      def temp_root
-        File.join(workspace.obj_root, temp_name)
-      end
-
       def build_root
         workspace.build_root
       end
 
       def temp_dir
-        workspace.obj_root
+        File.join(workspace.obj_root, temp_name)
       end
 
       def hmap_root
