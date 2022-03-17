@@ -69,7 +69,7 @@ module HMap
     #  or nil if the HMapHeader was created via {create}.
     attr_reader :num_entries, :magic, :version, :reserved, :strings_offset, :num_buckets, :max_value_length
 
-    FORMAT = 'L=1S=2L4'
+    FORMAT = 'L=1S=2L=4'
     # @see HMapStructure::SIZEOF
     # @api private
     SIZEOF = 24
