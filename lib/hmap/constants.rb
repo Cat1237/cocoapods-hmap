@@ -9,7 +9,7 @@ module HMap
     HMAP_DIR = 'HMap'
     HMAP_GEN_DIR = 'HMAP_GEN_DIR'
     HMAP_GEN_DIR_VALUE = '${HMAP_GEN_DIR}'
-    XCBuildData = 'XCBuildData'
+    XC_BUILD_DATA = 'XCBuildData'
     PROJECT_TEMP_DIR = '${PROJECT}.build'
     TARGET_TEMP_DIR = '${TARGET_NAME}.build'
     TARGET_NAME = '${TARGET_NAME}'
@@ -58,10 +58,6 @@ module HMap
       attr_writer :instance
     end
 
-    # def full_product_name(name, type)
-    #   name.join('.', FILE_TYPES_BY_EXTENSION[type])
-    # end
-
     def hmap_filename(type)
       filenames[type]
     end
@@ -107,14 +103,10 @@ module HMap
       return @build_settings if defined? @build_settings
 
       attributes = HMAP_GEN_DIR_ATTRIBUTE
-      settings = hmap_build_setting_values
-      #   attributes[HMAP_HEADER_SETTING] = settings
       attributes[HEADER_SEARCH_PATHS] = build_setting_values_i
       attributes[OTHER_CFLAGS] = build_setting_values_c
       attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
       attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
-      #   attributes[OTHER_CFLAGS] = HMAP_HEADER_SETTING_KEY
-      #   attributes[OTHER_CPLUSPLUSFLAGS] = HMAP_HEADER_SETTING_KEY
       attributes[USE_HEADERMAP] = 'NO'
       @build_settings = attributes
     end

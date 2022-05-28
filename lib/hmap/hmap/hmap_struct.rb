@@ -9,6 +9,9 @@ module HMap
     HMAP_SWAPPED_VERSION: 0x0100
   }.freeze
 
+  EMPTY_HMAP = "pamh\u0001\u0000\u0000\u0000x\u0000\u0000\u0000\u0000\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+  EMPTY_BUCKET = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+  private_constant :EMPTY_HMAP
   # A general purpose pseudo-structure.
   # @abstract
   class HMapStructure
@@ -69,7 +72,7 @@ module HMap
     #  or nil if the HMapHeader was created via {create}.
     attr_reader :num_entries, :magic, :version, :reserved, :strings_offset, :num_buckets, :max_value_length
 
-    FORMAT = 'L=1S=2L4'
+    FORMAT = 'L=1S=2L=4'
     # @see HMapStructure::SIZEOF
     # @api private
     SIZEOF = 24
@@ -117,7 +120,7 @@ module HMap
   # @see https://clang.llvm.org/doxygen/structclang_1_1HMapHeader.html
   # @abstract
   class HMapBucket < HMapStructure
-    attr_accessor :key, :perfix, :suffix, :uuid
+    attr_accessor :key, :perfix, :suffix
 
     SIZEOF = 12
     FORMAT = 'L=3'
@@ -150,61 +153,23 @@ module HMap
 
   # HMap blobs.
   class HMapData
-    def initialize(buckets)
+    def initialize(strings, buckets, entries)
       super()
-      count = buckets.count
-      nums = num_buckets(count, Utils.next_power_of_two(count))
-      entries = entries(count, nums)
-      @header = populate_hmap_header(nums, entries)
-      @buckets = add_bucket(buckets, nums)
-    end
+      return if strings.nil? || buckets.empty?
 
-    def num_buckets(count, pow2)
-      if count < 8
-        pow2 <<= 1 if count * 4 >= pow2 * 3
-        pow2 < 8 ? 8 : pow2
-      else
-        index = count > 341 ? 2 : -3
-        padding = count / 85 % 7 + index
-        Utils.next_power_of_two(count * 3 + padding)
-      end
-    end
-
-    def entries(count, nums)
-      return count if nums == 8
-
-      last_pow = nums >> 1
-      index = last_pow < 1024 ? 3 : -2
-      count - (last_pow + 1 + index) / 3 + 1 + last_pow
+      @buckets = buckets
+      @strings = strings
+      @header = populate_hmap_header(buckets.count, entries)
     end
 
     # @return [String] the serialized fields of the mafile
     def serialize
-      @header.serialize + @buckets.inject('') do |sum, bucket|
-        sum += if bucket.nil?
-                 empty_b = [HEADER_CONST[:HMAP_EMPTY_BUCKT_KEY]] * 3
-                 empty_b.pack('L<3')
-               else
-                 bucket
-               end
-        sum
-      end
+      return EMPTY_HMAP if @strings.nil?
+
+      @header.serialize + @buckets.join + @strings
     end
 
     private
-
-    def add_bucket(buckets, num)
-      buckets.each_with_object(Array.new(num)) do |bucket, sum|
-        serialize = bucket.serialize
-        i = Utils.index_of_range(bucket.uuid, num)
-        loop do
-          sum[i] = serialize if sum[i].nil?
-          break if serialize == sum[i]
-
-          i = Utils.index_of_range(i += 1, num)
-        end
-      end
-    end
 
     def populate_hmap_header(num_buckets, entries)
       strings_offset = HMapHeader.bytesize + HMapBucket.bytesize * num_buckets

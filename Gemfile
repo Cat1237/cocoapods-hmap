@@ -6,14 +6,13 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-
   gem 'claide'
   gem 'xcodeproj'
   gem 'yaml-vfs', '>= 0.0.4'
+  gem 'hashtable', '>= 0.1.2'
 end
 
 group :debugging do
-  gem 'cocoapods'
   gem 'debase'
   gem 'ruby-debug-ide'
 end

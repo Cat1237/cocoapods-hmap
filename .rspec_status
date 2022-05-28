@@ -1,4 +1,4 @@
-example_id                                | status | run_time        |
------------------------------------------ | ------ | --------------- |
-./spec/cocoapods/hmap_reader_spec.rb[1:1] | passed | 0.00072 seconds |
-./spec/cocoapods/hmap_reader_spec.rb[1:2] | passed | 0.00086 seconds |
+example_id                            | status | run_time        |
+------------------------------------- | ------ | --------------- |
+./spec/hmap/hmapfile_gen_spec.rb[1:1] | passed | 0.28055 seconds |
+./spec/hmap/hmapfile_gen_spec.rb[1:2] | passed | 9.94 seconds    |

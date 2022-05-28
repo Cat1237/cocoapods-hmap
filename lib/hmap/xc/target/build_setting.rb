@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'hmap/xc/target/target_vfs'
 
 module HMap
@@ -63,13 +64,7 @@ module HMap
     end
 
     def symlink_to(path, need_platform)
-      return unless path.exist?
-
-      filepath = Pathname.new(hmap_filepath(need_platform))
-      filepath.dirname.mkpath unless filepath.exist?
-      return if File.identical?(filepath, path)
-
-      filepath.make_symlink(path)
+      Utils.file_symlink_to(path, Pathname.new(hmap_filepath(need_platform)))
     end
 
     def write(data, need_platform)

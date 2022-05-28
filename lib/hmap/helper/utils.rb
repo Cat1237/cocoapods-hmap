@@ -57,10 +57,7 @@ module HMap
     end
 
     def self.string_downcase_hash(str)
-      str.downcase.bytes.inject(0) do |sum, value|
-        sum += value * 13
-        sum
-      end
+      str.downcase.bytes.inject(:+) * 13
     end
 
     def self.update_changed_file(path, contents)
@@ -71,6 +68,18 @@ module HMap
       end
       path.dirname.mkpath
       File.open(path, 'w') { |f| f.write(contents) }
+    end
+
+    def self.file_symlink_to(path, filepath)
+      return unless path.exist?
+
+      filepath.dirname.mkpath unless filepath.exist?
+
+      if Gem.win_platform?
+        FileUtils.ln(path, filepath, force: true)
+      else
+        FileUtils.ln_sf(path, filepath)
+      end
     end
 
     def self.swapped_magic?(magic, version)

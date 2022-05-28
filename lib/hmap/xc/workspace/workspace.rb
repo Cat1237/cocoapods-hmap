@@ -53,25 +53,25 @@ module HMap
     end
 
     def write_save!
-      UserInterface.puts("[hmapfile] Got workspace/project build directory..............")
-      UserInterface.puts("[hmapfile] #{name} Build directory: #{hmap_root} ..............")
+      UserInterface.puts('[hmapfile] Got workspace/project build directory')
+      UserInterface.puts("[hmapfile] #{name} hmapfile gen directory: #{hmap_root} ")
       write_hmapfile!
       save_hmap_settings!
     end
 
     def write_hmapfile!
-      UserInterface.puts('[hmapfile] Starting generate hmap file..............')
+      UserInterface.puts('[hmapfile] Starting generate hmap file')
       projects.each(&:write_hmapfile!)
     end
 
     def save_hmap_settings!
-      UserInterface.puts('[hmapfile] Saving hmap settings..............')
+      UserInterface.puts('[hmapfile] Saving hmap settings')
 
       projects.each(&:save_hmap_settings!)
     end
 
     def remove_hmap_settings!
-      UserInterface.puts('[hmapfile] Cleanning hmap settings..............')
+      UserInterface.puts('[hmapfile] Cleanning hmap settings')
       FileUtils.rm_rf(hmap_root) if Dir.exist?(hmap_root)
       projects.each(&:remove_hmap_settings!)
     end

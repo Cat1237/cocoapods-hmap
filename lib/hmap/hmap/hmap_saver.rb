@@ -2,60 +2,34 @@
 
 require 'hmap/hmap/hmap_struct'
 require 'hmap/hmap/mapfile'
+require 'hashtable'
 
 module HMap
+  # @class HMapSaver
   class HMapSaver
-    attr_reader :string_table, :buckets, :headers
+    attr_reader :string_table
 
     def self.new_from_buckets(buckets)
       saver = new
-      saver.add_to_buckets(buckets)
+      saver.add_to_buckets(buckets) unless buckets.empty?
       saver
     end
 
-    def initialize
-      @string_table = "\0"
-      @buckets = []
-      @headers = {}
-    end
-
-    def header_to_hash(keys, headers, index, buckets)
-      index = index.length
-      keys.inject('') do |sum, bucket|
-        buckte = BucketStr.new(*bucket)
-        string_t = buckte.bucket_to_string(headers, index + sum.length)
-        buckets.push(buckte)
-        sum + string_t
-      end
-    end
-
-    def add_to_string_table(str)
-      @string_table += "#{Utils.safe_encode(str, 'ASCII-8BIT')}\0"
-    end
-
-    def add_to_headers(key)
-      if headers[key].nil?
-        headers[key] = string_table.length
-        add_to_string_table(key)
-      end
-      headers[key]
-    end
-
-    def add_to_bucket(buckte)
-      key = add_to_headers(buckte.key)
-      perfix = add_to_headers(buckte.perfix)
-      suffix = add_to_headers(buckte.suffix)
-      bucket = HMapBucket.new(key, perfix, suffix)
-      bucket.uuid = Utils.string_downcase_hash(buckte.key)
-      @buckets << bucket
-    end
-
     def add_to_buckets(buckets)
-      buckets.each { |bucket| add_to_bucket(bucket) }
+      return if buckets.nil?
+
+      hash_t = HashTable::HashTable.new_from_vlaue_placeholder(buckets.length, EMPTY_BUCKET, expand: true)
+      ta = HashTable::StringHashTraits.new { |bs| HMapBucket.new(*bs).serialize }
+      buckets.each do |bs|
+        hash_t.set(bs.key, bs.value, ta)
+      end
+      @strings = ta.string_table
+      @buckets = hash_t.values
+      @entries = hash_t.num_entries
     end
 
     def write_to(path)
-      MapFile.new(@string_table, @buckets).write(Pathname(path))
+      MapFile.new(@strings, @buckets, @entries).write(Pathname(path))
     end
   end
 end

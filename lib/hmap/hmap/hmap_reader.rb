@@ -34,10 +34,10 @@ module HMap
     # @note This method is public, but should (almost) never need to be called.
     def populate_fields
       @header = populate_hmap_header
-      string_t = @raw_data[header.strings_offset..-1]
+      string_t = @raw_data[header.strings_offset..]
       @bucktes = populate_buckets do |bucket|
         bucket_s = bucket.to_a.map do |key|
-          string_t[key..-1].match(/[^\0]+/)[0]
+          string_t[key..].match(/[^\0]+/)[0]
         end
         BucketStr.new(*bucket_s)
       end

@@ -1,27 +1,29 @@
-# cocoapods-hmap
+# hmapfile
 
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/wangson1237/SYCSSColor/master/LICENSE)&nbsp;
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/Cat1237/cocoapods-hmap/main/LICENSE)&nbsp;
 
 A CocoaPods plugin which can gen/read header map file.
 
 **hmap-gen** is able to scan the header files of the target referenced components in the specified Cocoapods project, and generates a header map file that public to all the components
 as well as generates a public and private header map file for each referenced component.
 
-- <header.h> : -I<hmap file path>
-- "header.h" : -iquote <hmap file path>
+- `<header.h>` : `-I<hmap file path>`
+- `"header.h"` : `-iquote <hmap file path>`
 
 For framework, use [yaml-vfs](https://github.com/Cat1237/yaml-vfs) create VFS file to map framework Headers and Modules dir and pass VFS file to `-ivfsoverlay` parameter.
 
-- vfs : -ivfsoverlay <all-product-headers.yaml>
+- `vfs` : `-ivfsoverlay <all-product-headers.yaml>`
 
 A hmap file includes four types of headers:
 
-- "header.h"
-- <module/header.h> **based on project**
-- <project_name/header.h> **based on project**
-- <*\*/**/header.h> **based on project**
-- "*\*/**/header.h" **based on project**
-- "module/header.h" **based on project**
+- `"header.h"`
+- `<module/header.h>` **based on project**
+- `<project_name/header.h>` **based on project**
+- `<*\*/**/header.h>` **based on project**
+- `"*\*/**/header.h"` **based on project**
+- `"module/header.h"` **based on project**
+
+For hmapfile hashtbale, use [hashtbale](https://github.com/Cat1237/hashtable) create hashtable and bitmap to store headers.
 
 ## Installation
 
@@ -46,21 +48,25 @@ $ gem install cocoapods-mapfile
 ```
 
 ## Quickstart
+
 To begin gen hmap file by opening an Xcodeproj dir, and to your command line with:
+
 ```shell
-$ hmapfile gen
-```
-or to your podfile, add this line:
-```
-$ plugin 'cocoapods-mapfile'
+hmapfile gen
 ```
 
+or to your podfile, add this line:
+
+```rb
+plugin 'cocoapods-mapfile'
+```
 
 ## Command Line Tool
 
 Installing the `cocoapods-mapfile` gem will also install two command-line tool `hmapfile reader` and `hmapfile writer` which you can use to generate header map file and read hmap file.
 
 For more information consult
+
 - `hmapfile --help`
 - `hmapfile gen --help`
 - `hmapfile reader --help`
@@ -118,11 +124,13 @@ plugin 'cocoapods-mapfile'
 This was equl:
 
 ```rb
-$ hmapfile gen --project-directory=<project path>
+hmapfile gen --project-directory=<project path>
 ```
+
 or, you can set some value:
 
 Every time you execute pod install or pod update, `cocoapods-mapfile` will automatically generate a `header map file` for you and modify:
+
 - `OTHER_CPLUSPLUSFLAGS`
 - `OTHER_CFLAGS`
 - `USE_HEADERMAP`

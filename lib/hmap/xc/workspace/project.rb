@@ -22,7 +22,7 @@ module HMap
       build_configurations = project.build_configuration_list.build_configurations
       build_configurations += project.targets.flat_map do |target|
         target.build_configuration_list.build_configurations
-      end 
+      end
 
       ps = build_configurations.flatten.each_with_object({}) do |configuration, sum|
         bs = configuration.build_settings
@@ -39,16 +39,15 @@ module HMap
         Platform.new_from_platforms(key, value.uniq)
       end
     end
-    
+
     def targets
       return @targets if defined?(@targets)
 
       project_dir = project.project_dir
-      
+
       h_ts = project.targets.map do |target|
         next if target.is_a?(Constants::PBXAggregateTarget)
-        
-        name = target.name
+
         headers = target.build_phases.flat_map do |phase|
           next unless phase.is_a?(Constants::PBXHeadersBuildPhase)
 
@@ -69,7 +68,11 @@ module HMap
       types = %i[all_non_framework_target_headers project_headers all_target_headers all_product_headers]
       datas = headers_hash(*types)
       hmap_writer.write_or_symlink(nil, datas, %i[all_product_headers])
-      targets.each(&:write_hmapfile!)
+      targets.each do |target|
+        target.write_hmapfile!
+        UserInterface.puts("[hmapfile] #{target.target_name} hmap files generated".green)
+      end
+      UserInterface.puts("[hmapfile] There are #{targets.length} targets hmap files generated")
     end
 
     def save_hmap_settings!

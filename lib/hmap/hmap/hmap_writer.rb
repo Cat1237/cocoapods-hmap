@@ -14,8 +14,8 @@ module HMap
     # @param allow_targets this targets will save origin build setting
     # @param use_build_in_headermap option use Xcode header map
     def initialize(use_origin, project_root, clean_hmap)
-      UserInterface.puts("[hmapfile] Workspace/project root: #{project_root}..............")
-      UserInterface.puts("[hmapfile] Analyzing dependencies..............")
+      UserInterface.puts("[hmapfile] Workspace/project root: #{project_root}")
+      UserInterface.puts('[hmapfile] Analyzing dependencies')
       Resolver.instance.installation_root = project_root
       Resolver.instance.use_origin = use_origin
       create_hmapfile(clean_hmap)

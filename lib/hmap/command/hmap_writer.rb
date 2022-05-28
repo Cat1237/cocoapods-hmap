@@ -41,14 +41,14 @@ module HMap
 
       def run
         require 'json'
-        UserInterface.puts "\n[hmapfile-from-json] start..............".yellow
+        UserInterface.puts "\n[hmapfile-from-json] start".yellow
         json_file = File.read(@json_path)
         json = JSON.parse(json_file)
         strs = json.map { |e| HMap::BucketStr.new(*e) }
         path = @output_path
         path = path.join("#{File.basename(@json_path, '.*')}.hmap") if path.directory?
         HMapSaver.new_from_buckets(strs).write_to(path)
-        UserInterface.puts '[hmapfile-from-json] finish..............'.yellow
+        UserInterface.puts '[hmapfile-from-json] finish'.yellow
       end
     end
   end

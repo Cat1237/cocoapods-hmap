@@ -1,0 +1,33 @@
+
+
+source 'https://github.com/CocoaPods/Specs'
+
+platform :ios, '9.0'
+#install! 'cocoapods', generate_multiple_pod_projects: true
+
+#plugin 'cocoapods-mapfile'
+
+
+target 'LGApp' do
+  use_frameworks!
+    pod 'AFNetworking'
+    pod 'GoogleUtilities'
+    pod 'WCDB.swift'
+    pod 'FBSDKShareKit'
+    pod 'Realm'
+    pod 'YYKit'
+    pod 'Kingfisher'
+    pod 'iOS-Echarts', '~>1.4.4'
+end
+
+#target 'TestNoo' do
+#  use_frameworks!
+#
+#end
+
+#  pod 'lottie-ios', '~> 2.5.3'
+#  pod 'MeshPipe/CerfingMeshPipe'
+#  pod 'AFNetworking'
+#  pod 'SDWebImage'
+#  pod 'Kingfisher'
+#:linkage => :static

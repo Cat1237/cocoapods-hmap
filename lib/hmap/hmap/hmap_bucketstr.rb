@@ -11,6 +11,14 @@ module HMap
       @suffix = suffix
     end
 
+    def value
+      [perfix, suffix]
+    end
+
+    def to_a
+      [key, perfix, suffix]
+    end
+
     def description
       <<-DESC
         Key #{@key} -> Prefix #{@perfix}, Suffix #{@suffix}

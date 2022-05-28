@@ -59,7 +59,6 @@ module HMap
     end
   end
 
-
   # A collection of Each TargetVFSEntry
   class TargetVFS
     def initialize(public_headers, private_headers, platforms, setting)

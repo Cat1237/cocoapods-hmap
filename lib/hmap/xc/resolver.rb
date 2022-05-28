@@ -121,7 +121,7 @@ module HMap
       command += %w[-json -showBuildSettings]
       results = Executable.execute_command('xcodebuild', command, false)
       index = results.index(/"action"/m)
-      reg = results[index..-1]
+      reg = results[index..]
       reg = "[\n{\n#{reg}"
       JSON.parse(reg) unless results.nil?
     end

@@ -17,7 +17,6 @@ module HMap
 
     def add_build_settings_and_save(settings, use_origin: true)
       add_build_settings(settings, use_origin)
-      build_settings = [Constants::HEADER_SEARCH_PATHS, Constants::USER_HEADER_SEARCH_PATHS]
       if use_origin
         remove_build_settings(settings)
       else
@@ -61,10 +60,9 @@ module HMap
     end
 
     def remove_build_settings_and_save
-
       hmap_ks = @xcconfig.attributes.keys.each_with_object([]) do |key, sum|
-        sum << key[HMAP_XCKEY_START.length..-1] if key.start_with?(HMAP_XCKEY_START)
-        sum << key[SAVE_XCKEY_START.length..-1] if key.start_with?(SAVE_XCKEY_START)
+        sum << key[HMAP_XCKEY_START.length..] if key.start_with?(HMAP_XCKEY_START)
+        sum << key[SAVE_XCKEY_START.length..] if key.start_with?(SAVE_XCKEY_START)
       end.compact
       remove_build_settings(hmap_ks)
       save_as
@@ -78,9 +76,7 @@ module HMap
     def remove_build_setting(setting)
       save_origin = @xcconfig.attributes[save_xckey(setting)]
       origin = @xcconfig.attributes[setting]
-      if save_origin.nil? && !origin.nil? && origin.include?(hmap_xckey(setting))
-        @xcconfig.attributes.delete(setting)
-      end
+      @xcconfig.attributes.delete(setting) if save_origin.nil? && !origin.nil? && origin.include?(hmap_xckey(setting))
       @xcconfig.attributes[setting] = save_origin unless save_origin.nil?
       @xcconfig.attributes.delete(hmap_xckey(setting))
       @xcconfig.attributes.delete(save_xckey(setting))
@@ -96,7 +92,6 @@ module HMap
     def build_setting?(key)
       !@xcconfig.attributes[key].nil?
     end
-
 
     def hmap_xckey(key)
       "#{HMAP_XCKEY_START}#{key}"

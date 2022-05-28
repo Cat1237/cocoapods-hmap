@@ -11,4 +11,3 @@ RSpec.describe 'cocoapods-hmap hmap-reader' do
     expect(reader.header.num_entries == 154)
   end
 end
-

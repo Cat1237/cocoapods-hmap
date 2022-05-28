@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   ).strip.gsub(/\s+/, ' ')
   spec.homepage      = 'https://github.com/Cat1237/cocoapods-hmap.git'
   spec.license       = 'MIT'
-  spec.files         = %w[README.md LICENSE] + Dir['lib/**/*.rb']
+  spec.files         = %w[README.md LICENSE bin/hmapfile] + Dir['lib/**/*.rb']
   spec.executables   = %w[hmapfile]
   spec.require_paths = ['lib']
 
@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'claide', '>= 1.0.2', '< 2.0'
   spec.add_runtime_dependency 'xcodeproj', '>= 1.19.0', '< 2.0'
   spec.add_runtime_dependency 'yaml-vfs', '>= 0.0.4'
+  spec.add_runtime_dependency 'hashtable', '>= 0.0.3'
 
-  spec.required_ruby_version = '>= 2.5'
+  spec.required_ruby_version = '>= 2.6'
 end

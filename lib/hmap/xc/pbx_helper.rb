@@ -1,7 +1,7 @@
 module HMap
   module PBXHelper
-    PBX_GROUP = '<group>'
-    PBX_SOURCE_ROOT = 'SOURCE_ROOT'
+    PBX_GROUP = '<group>'.freeze
+    PBX_SOURCE_ROOT = 'SOURCE_ROOT'.freeze
     private_constant :PBX_GROUP, :PBX_SOURCE_ROOT
     def self.get_groups(xct)
       groups = xct.referrers.select { |e| e.is_a?(Constants::PBXGroup) } || []

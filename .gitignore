@@ -24,6 +24,8 @@ spec/fixtures/snake
 spec/fixtures/vcr
 spec/fixtures/spec-repos/Spec_Lock
 tmp
+spec/hmap/Resources/LGApp/Pods
+
 
 # Examples
 examples/**/Podfile.lock

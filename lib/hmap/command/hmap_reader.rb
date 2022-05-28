@@ -20,7 +20,7 @@ module HMap
         mapfile_path = argv.option('hmap-path')
         raise ArgumentError, "#{mapfile_path}: no such file!" if mapfile_path.nil? || !File.exist?(mapfile_path)
 
-        @mapfile_path = Pathname.new(mapfile_path).expand_path 
+        @mapfile_path = Pathname.new(mapfile_path).expand_path
       end
 
       def validate!
@@ -36,9 +36,9 @@ module HMap
       end
 
       def run
-        UserInterface.puts "\n[hmapfile] Reader start..............\n".yellow
+        UserInterface.puts "\n[hmapfile] Reader start\n".yellow
         HMap::MapFileReader.new(@mapfile_path)
-        UserInterface.puts "\n[hmapfile] Reader finish..............\n".yellow
+        UserInterface.puts "\n[hmapfile] Reader finish\n".yellow
       end
     end
   end

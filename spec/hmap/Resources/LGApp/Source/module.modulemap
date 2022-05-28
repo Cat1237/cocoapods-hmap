@@ -1,0 +1,8 @@
+module Cat {
+    // 伞 伞柄 头文件 伞骨
+//    umbrella header "LGModule.h"
+//    export *
+//    module * { export *}
+}
+
+// clang -fmodule-file

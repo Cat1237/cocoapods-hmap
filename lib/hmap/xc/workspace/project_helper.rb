@@ -56,10 +56,6 @@ module HMap
         project.project_dir
       end
 
-      def temp_name
-        "#{project_name}.build"
-      end
-
       def build_root
         workspace.build_root
       end
@@ -73,7 +69,7 @@ module HMap
       end
 
       def build_data_dir
-        Constants::XCBuildData
+        Constants::XC_BUILD_DATA
       end
 
       def context
