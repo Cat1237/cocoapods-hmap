@@ -34,8 +34,11 @@ module HMap
       define_method(:project_headers) do
         return @project_headers if defined?(@project_headers)
 
-        @project_headers = targets.inject({}) do |sum, entry|
+        hs = targets.inject({}) do |sum, entry|
           sum.merge!(entry.project_headers) { |_, v1, _| v1 }
+        end
+        @project_headers = project_entrys.inject(hs) do |sum, entry|
+          sum.merge!(entry.project_buckets_extra) { |_, v1, _| v1 }
         end
       end
 

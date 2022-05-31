@@ -80,7 +80,6 @@ module HMap
       @projects.flat_map(&:targets).inject({}) do |sum, entry|
         sum.merge!(entry.all_target_headers) { |_, v1, _| v1 }
       end
-      # @projects.flat_map(&:targets).flat_map(&:all_target_headers)
     end
   end
 end

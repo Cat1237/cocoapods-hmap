@@ -32,9 +32,9 @@ module HMap
       # Though this looks like a regular expression quantifier, it isn't.
       # For example, in regular expression, the pattern a{1,2} will match 1 or 2 'a' characters.
       # In globbing, it will match the string a1 or a2.
-      paths = Dir.glob(File.join(Resolver.instance.installation_root, '*.{xcworkspace,xcodeproj}'))
+      paths = Dir.glob(File.join(Resolver.instance.installation_root, '*.{xcworkspace,xcodeproj}')) || []
       workspace_paths = paths.select { |f| File.extname(f) == '.xcworkspace' }
-      xcs = if workspace_paths.nil?
+      xcs = if workspace_paths.empty?
               project_paths = paths.select { |f| File.extname(f) == '.xcodeproj' }
               Workspace.new_from_xcprojects(project_paths) unless project_paths.nil?
             else

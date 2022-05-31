@@ -39,7 +39,7 @@ module HMap
     end
 
     def project_build_settings(project_path)
-      targets = xcodebuild(project_path) || []
+      targets = xcodebuild_project(project_path) || []
       targets.first['buildSettings']
     end
 
