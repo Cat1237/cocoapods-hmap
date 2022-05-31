@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - CocoaLumberjack (3.7.4):
+    - CocoaLumberjack/Core (= 3.7.4)
+  - CocoaLumberjack/Core (3.7.4)
   - FBAEMKit (12.0.2):
     - FBSDKCoreKit_Basics (= 12.0.2)
   - FBSDKCoreKit (12.0.2):
@@ -55,66 +58,69 @@ PODS:
     - GoogleUtilities/MethodSwizzler
   - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - iOS-Echarts (1.4.4)
   - Kingfisher (4.10.1)
+  - MagicalRecord (2.3.2):
+    - MagicalRecord/Core (= 2.3.2)
+  - MagicalRecord/Core (2.3.2)
   - PromisesObjC (2.1.0)
   - Realm (10.26.0):
     - Realm/Headers (= 10.26.0)
   - Realm/Headers (10.26.0)
-  - SQLiteRepairKit (1.2.2):
-    - WCDBOptimizedSQLCipher (~> 1.2.0)
-  - WCDB.swift (1.0.8.2):
-    - SQLiteRepairKit (~> 1.2.0)
-    - WCDBOptimizedSQLCipher (~> 1.2.0)
-  - WCDBOptimizedSQLCipher (1.2.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - AFNetworking
+  - CocoaLumberjack
   - FBSDKShareKit
   - GoogleUtilities
+  - IGListKit
   - iOS-Echarts (~> 1.4.4)
   - Kingfisher
+  - MagicalRecord
   - Realm
-  - WCDB.swift
   - YYKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - CocoaLumberjack
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKShareKit
     - GoogleUtilities
+    - IGListDiffKit
+    - IGListKit
     - iOS-Echarts
     - Kingfisher
+    - MagicalRecord
     - PromisesObjC
     - Realm
-    - SQLiteRepairKit
-    - WCDB.swift
-    - WCDBOptimizedSQLCipher
     - YYKit
-  trunk:
-    - AFNetworking
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
   FBAEMKit: c6b8ddf8371640fcd1a3b844d0f8884c8f334cea
   FBSDKCoreKit: 506c0fd1c09a3075f62be8fa36bdd921c563daa9
   FBSDKCoreKit_Basics: c0701d1634c944d60dd3c6361d66dbd0e707a456
   FBSDKShareKit: 4598ab1ded1a83635746f8cd681948f97ad29560
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   iOS-Echarts: dbc7423d861e5eedee78906a39d205b5c4da9a13
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Realm: 97bc2540088e1e88a4b2051ba4b8eac85be0039a
-  SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
-  WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
-  WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: ad5532c38c232a014d02f5908f06d132a1f224db
+PODFILE CHECKSUM: 79df6d7f4e17ee53ec6d2c1a032b9cc46444efcf
 
 COCOAPODS: 1.11.3

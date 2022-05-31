@@ -19,7 +19,9 @@ module HMap
       define_method(:all_non_framework_target_headers) do
         return @all_non_framework_target_headers if defined?(@all_non_framework_target_headers)
 
-        @all_non_framework_target_headers = targets.flat_map(&:all_non_framework_target_headers).compact
+        @all_non_framework_target_headers = targets.inject({}) do |sum, entry|
+          sum.merge!(entry.all_non_framework_target_headers || {}) { |_, v1, _| v1 }
+        end
       end
 
       # all_targets include header full module path
@@ -32,12 +34,14 @@ module HMap
       define_method(:project_headers) do
         return @project_headers if defined?(@project_headers)
 
-        @project_headers = all_target_headers + project_entrys.flat_map { |entry| entry.project_buckets_extra }
+        @project_headers = targets.inject({}) do |sum, entry|
+          sum.merge!(entry.project_headers) { |_, v1, _| v1 }
+        end
       end
 
       def project_references
         return @project_references if defined? @project_references
-  
+
         project_references = PBXHelper.project_references(project)
         @project_references = project_references.map { |pr| Project.new(pr, workspace) }
       end

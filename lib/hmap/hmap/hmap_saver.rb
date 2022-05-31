@@ -20,8 +20,8 @@ module HMap
 
       hash_t = HashTable::HashTable.new_from_vlaue_placeholder(buckets.length, EMPTY_BUCKET, expand: true)
       ta = HashTable::StringHashTraits.new { |bs| HMapBucket.new(*bs).serialize }
-      buckets.each do |bs|
-        hash_t.set(bs.key, bs.value, ta)
+      buckets.each_pair do |key, value|
+        hash_t.set(key, value, ta)
       end
       @strings = ta.string_table
       @buckets = hash_t.values

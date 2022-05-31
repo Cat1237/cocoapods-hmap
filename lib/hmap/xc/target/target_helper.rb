@@ -17,28 +17,41 @@ module HMap
         return if build_as_framework?
 
         p_h = public_entrys + private_entrys
-        p_h.flat_map { |entry| entry.full_module_buckets(product_name) }
+        p_h.inject({}) do |sum, entry|
+          sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
+        end
       end
 
       # all_targets include header full module path
       define_method(:all_target_headers) do
         p_h = public_entrys + private_entrys
-        p_h.flat_map do |entry|
-          entry.full_module_buckets_extra(product_name) + entry.module_buckets(product_name)
+        p_h.inject({}) do |sum, entry|
+          sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
+          sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
       end
 
       define_method(:project_headers) do
-        all_target_headers + project_entrys.flat_map(&:project_buckets_extra)
+        p_h = public_entrys + private_entrys
+        hs = p_h.inject({}) do |sum, entry|
+          sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
+        end
+        project_entrys.inject(hs) do |sum, entry|
+          sum.merge!(entry.project_buckets_extra) { |_, v1, _| v1 }
+        end
       end
 
       define_method(:own_target_headers) do
         headers = public_entrys + private_entrys
-        headers = headers.flat_map { |entry| entry.module_buckets(product_name) }
-        headers + project_entrys.flat_map do |entry|
-          entry.project_buckets + entry.full_module_buckets(product_name)
+        hs = headers.inject({}) do |sum, entry|
+          sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
+        end
+        project_entrys.inject(hs) do |sum, entry|
+          sum.merge!(entry.project_buckets) { |_, v1, _| v1 }
+          sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
       end
+      
       def build_root
         project.build_root
       end

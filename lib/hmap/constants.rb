@@ -58,6 +58,10 @@ module HMap
       attr_writer :instance
     end
 
+    def initialize
+      @build_as_framework = {}
+    end
+
     def hmap_filename(type)
       filenames[type]
     end
@@ -93,22 +97,22 @@ module HMap
       xc_filenames[type]
     end
 
-    def hmap_build_settings
-      build_settings
+    def hmap_build_settings(build_as_framework)
+      build_settings(build_as_framework)
     end
 
     private
 
-    def build_settings
-      return @build_settings if defined? @build_settings
+    def build_settings(build_as_framework)
+      return @build_as_framework[build_as_framework] unless @build_as_framework[build_as_framework].nil?
 
       attributes = HMAP_GEN_DIR_ATTRIBUTE
-      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i
+      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i(build_as_framework)
       attributes[OTHER_CFLAGS] = build_setting_values_c
       attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
       attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
       attributes[USE_HEADERMAP] = 'NO'
-      @build_settings = attributes
+      @build_as_framework[build_as_framework] = attributes
     end
 
     def filenames
@@ -124,22 +128,27 @@ module HMap
       end]
     end
 
-    def build_setting_values_i
-      %i[own_target_headers all_non_framework_target_headers].map do |type|
+    def build_setting_values_i(build_as_framework)
+      a = if build_as_framework
+            %i[own_target_headers all_non_framework_target_headers]
+          else
+            %i[own_target_headers all_non_framework_target_headers all_target_headers]
+          end
+      a.map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
       end.join(' ')
     end
 
     def build_setting_values_iquote
-      %i[project_headers all_target_headers].map do |type|
+      %i[project_headers].map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
       end.join(' ')
     end
 
     def build_setting_values_c
-      %i[all_target_headers all_product_headers].map do |type|
+      %i[all_product_headers].map do |type|
         key = build_setting_keys[type]
         value = xc_filenames[type]
         blank = ' ' unless key == :I

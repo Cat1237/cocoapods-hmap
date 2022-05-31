@@ -7,7 +7,7 @@ module HMap
   require 'pathname'
   require 'claide'
 
-  require_relative 'hmap/version'
+  require 'hmap/gem_version'
   require_relative 'hmap/user_interface'
 
   # autoload registers a file path to be loaded the first time

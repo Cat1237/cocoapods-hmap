@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('../lib/hmap/version', __FILE__)
+require File.expand_path('../lib/hmap/gem_version', __FILE__)
 
 # require "#{File.dirname(__FILE__)}/lib/hmap"
 
