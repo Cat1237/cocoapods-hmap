@@ -95,6 +95,33 @@ $ hmapfile COMMAND
     - `--json-path=/project/dir/json`: The path to the hmap json data.
     - `--output-path=/project/dir/hmap file`: The path json data to the hmap file.
 
+**hmapfile writer json file:**
+
+```json
+{
+    "MM.h": [
+        "/Users/ws/Desktop/TestAndTestApp/TestAndTestApp/",
+        "MM.h"
+    ],
+    "Dog.h": [
+        "/Users/ws/Desktop/TestAndTestApp/TestAndTestApp/",
+        "MM.h"
+    ],
+    "Cat.h": [
+        "/Users/ws/Desktop/TestAndTestApp/TestAndTestApp/",
+        "MM.h"
+    ],
+    "TestAndTestApp/MM.h": [
+        "/Users/ws/Desktop/TestAndTestApp/TestAndTestApp/",
+        "MM.h"
+    ],
+    "TestAndTestApp/Dog.h": [
+        "/Users/ws/Desktop/TestAndTestApp/TestAndTestApp/",
+        "Dog.h"
+    ]
+}
+```
+
 example：
 
 ```shell

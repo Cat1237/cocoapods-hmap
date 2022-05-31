@@ -44,7 +44,7 @@ module HMap
         name = 'Clean' if @clean_hmap
         UserInterface.puts("\n[hmapfile] #{name} start")
         unless @project_directory.exist?
-          UserInterface.puts("\n[hmapfile] #{name} #{@project_directory} dir not exist!".red)
+          UserInterface.puts("\n[hmapfile] #{name} [ERROR] #{@project_directory} dir not exist!".red)
           return
         end
         HMap::MapFileWriter.new(true, @project_directory, @clean_hmap)

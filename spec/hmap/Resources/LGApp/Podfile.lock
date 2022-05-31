@@ -70,6 +70,12 @@ PODS:
   - Realm (10.26.0):
     - Realm/Headers (= 10.26.0)
   - Realm/Headers (10.26.0)
+  - SQLiteRepairKit (1.2.2):
+    - WCDBOptimizedSQLCipher (~> 1.2.0)
+  - WCDB.swift (1.0.8.2):
+    - SQLiteRepairKit (~> 1.2.0)
+    - WCDBOptimizedSQLCipher (~> 1.2.0)
+  - WCDBOptimizedSQLCipher (1.2.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -84,6 +90,7 @@ DEPENDENCIES:
   - Kingfisher
   - MagicalRecord
   - Realm
+  - WCDB.swift
   - YYKit
 
 SPEC REPOS:
@@ -102,6 +109,9 @@ SPEC REPOS:
     - MagicalRecord
     - PromisesObjC
     - Realm
+    - SQLiteRepairKit
+    - WCDB.swift
+    - WCDBOptimizedSQLCipher
     - YYKit
 
 SPEC CHECKSUMS:
@@ -119,8 +129,11 @@ SPEC CHECKSUMS:
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Realm: 97bc2540088e1e88a4b2051ba4b8eac85be0039a
+  SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
+  WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
+  WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 79df6d7f4e17ee53ec6d2c1a032b9cc46444efcf
+PODFILE CHECKSUM: cae64f750233bbae50d970fd856f46b7dcb64cb7
 
 COCOAPODS: 1.11.3

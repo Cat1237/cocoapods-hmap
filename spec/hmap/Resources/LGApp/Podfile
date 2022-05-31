@@ -12,7 +12,7 @@ target 'LGApp' do
   pod 'MagicalRecord'
   pod 'CocoaLumberjack'
   pod 'IGListKit'
-#  pod 'WCDB.swift'
+  pod 'WCDB.swift'
   pod 'FBSDKShareKit'
   pod 'Realm'
   pod 'YYKit'

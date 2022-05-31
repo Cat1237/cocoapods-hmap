@@ -17,16 +17,14 @@ module HMap
 
       def initialize(argv)
         super
-        mapfile_path = argv.option('hmap-path')
-        raise ArgumentError, "#{mapfile_path}: no such file!" if mapfile_path.nil? || !File.exist?(mapfile_path)
-
+        mapfile_path = argv.option('hmap-path') || ''
         @mapfile_path = Pathname.new(mapfile_path).expand_path
       end
 
       def validate!
         super
         # banner! if help?
-        raise '[ERROR]: --hmap-path no set'.red unless File.exist?(@mapfile_path)
+        raise "[hmapfile] Reader [ERROR]: --hmap-path #{@mapfile_path} no exist".red if @mapfile_path.nil?
       end
 
       def self.options
@@ -36,9 +34,13 @@ module HMap
       end
 
       def run
-        UserInterface.puts "\n[hmapfile] Reader start\n".yellow
-        HMap::MapFileReader.new(@mapfile_path)
-        UserInterface.puts "\n[hmapfile] Reader finish\n".yellow
+        UserInterface.puts "\n[hmapfile] Reader start\n"
+        if File.exist?(@mapfile_path)
+          HMap::MapFileReader.new(@mapfile_path)
+        else
+          UserInterface.puts "\n[hmapfile] Reader input path: #{@mapfile_path} no such file!\n".red
+        end
+        UserInterface.puts "\n[hmapfile] Reader finish\n"
       end
     end
   end
