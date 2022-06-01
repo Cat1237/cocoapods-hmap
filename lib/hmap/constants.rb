@@ -25,6 +25,7 @@ module HMap
     OTHER_CFLAGS = 'OTHER_CFLAGS'
     OTHER_CPLUSPLUSFLAGS = 'OTHER_CPLUSPLUSFLAGS'
     CONFIGURATION_BUILD_DIR = 'CONFIGURATION_BUILD_DIR'
+    OTHER_SWIFT_FLAGS = 'OTHER_SWIFT_FLAGS'
 
     XCBuildConfiguration = Xcodeproj::Project::Object::XCBuildConfiguration
     PBXSourcesBuildPhase = Xcodeproj::Project::Object::PBXSourcesBuildPhase
@@ -97,22 +98,26 @@ module HMap
       xc_filenames[type]
     end
 
-    def hmap_build_settings(build_as_framework)
-      build_settings(build_as_framework)
+    def hmap_build_settings(build_as_framework, use_vfs, all_non_framework)
+      build_settings(build_as_framework, use_vfs, all_non_framework)
     end
 
     private
 
-    def build_settings(build_as_framework)
-      return @build_as_framework[build_as_framework] unless @build_as_framework[build_as_framework].nil?
+    def build_settings(build_as_framework, use_vfs, all_non_framework)
+     # return @build_as_framework[build_as_framework] unless @build_as_framework[build_as_framework].nil?
 
       attributes = HMAP_GEN_DIR_ATTRIBUTE
-      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i(build_as_framework)
-      attributes[OTHER_CFLAGS] = build_setting_values_c
-      attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
+      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i(build_as_framework, all_non_framework)
+      if use_vfs
+        attributes[OTHER_CFLAGS] = build_setting_values_c
+        attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
+        attributes[OTHER_SWIFT_FLAGS] = build_setting_values_s
+      end
       attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
       attributes[USE_HEADERMAP] = 'NO'
-      @build_as_framework[build_as_framework] = attributes
+      attributes
+      #@build_as_framework[build_as_framework] = attributes
     end
 
     def filenames
@@ -128,12 +133,22 @@ module HMap
       end]
     end
 
-    def build_setting_values_i(build_as_framework)
+    def build_setting_values_s
+      %i[all_product_headers].map do |type|
+        key = build_setting_keys[type]
+        value = xc_filenames[type]
+        blank = ' ' unless key == :I
+        ["-Xcc -#{key}", "-Xcc \"#{HMAP_GEN_DIR_VALUE}/#{value}\""].join(blank || '')
+      end.join(' ')
+    end
+
+    def build_setting_values_i(build_as_framework, all_non_framework)
       a = if build_as_framework
-            %i[own_target_headers all_non_framework_target_headers]
+            %i[own_target_headers]
           else
-            %i[own_target_headers all_non_framework_target_headers all_target_headers]
+            %i[own_target_headers all_target_headers]
           end
+      a << :all_non_framework_target_headers    if all_non_framework
       a.map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""

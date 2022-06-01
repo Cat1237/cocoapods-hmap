@@ -39,7 +39,7 @@ module HMap
       else
         save_origin = save_build_setting(key)
         e_value = value
-        e_value = "#{e_value} ${#{save_xckey(key)}}" if use_origin && !save_origin.nil?
+        e_value = "${#{save_xckey(key)}} #{e_value} " if use_origin && !save_origin.nil?
         @xcconfig.attributes[hmap_xckey(key)] = e_value
         @xcconfig.attributes[key] = "${#{hmap_xckey(key)}}"
       end

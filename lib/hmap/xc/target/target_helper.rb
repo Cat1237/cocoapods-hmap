@@ -51,7 +51,7 @@ module HMap
           sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
       end
-      
+
       def build_root
         project.build_root
       end

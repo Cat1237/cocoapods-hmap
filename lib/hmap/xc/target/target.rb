@@ -28,7 +28,8 @@ module HMap
 
     def save_hmap_settings!
       xcconfig_paths.each do |path|
-        settings = Constants.instance.hmap_build_settings(build_as_framework?)
+        all_non_framework = !all_non_framework_target_headers.nil? && !all_non_framework_target_headers.empty?
+        settings = Constants.instance.hmap_build_settings(build_as_framework?, use_vfs?, all_non_framework)
         XcodeprojHelper.new(path).add_build_settings_and_save(settings, use_origin: Resolver.instance.use_origin)
       end
     end

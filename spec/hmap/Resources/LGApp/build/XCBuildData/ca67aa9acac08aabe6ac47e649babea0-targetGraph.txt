@@ -1,0 +1,49 @@
+Target dependency graph (20 targets)
+AFNetworking in Pods, no dependencies
+CocoaLumberjack in Pods, no dependencies
+FBSDKCoreKit_Basics in Pods, no dependencies
+FBAEMKit in Pods, depends on:
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKCoreKit in Pods, depends on:
+FBAEMKit in Pods (explicit)
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKShareKit in Pods, depends on:
+FBSDKCoreKit in Pods (explicit)
+PromisesObjC in Pods, no dependencies
+GoogleUtilities in Pods, depends on:
+PromisesObjC in Pods (explicit)
+IGListDiffKit in Pods, no dependencies
+IGListKit in Pods, depends on:
+IGListDiffKit in Pods (explicit)
+Kingfisher in Pods, no dependencies
+MagicalRecord in Pods, no dependencies
+Realm in Pods, no dependencies
+WCDBOptimizedSQLCipher in Pods, no dependencies
+SQLiteRepairKit in Pods, depends on:
+WCDBOptimizedSQLCipher in Pods (explicit)
+WCDB.swift in Pods, depends on:
+SQLiteRepairKit in Pods (explicit)
+WCDBOptimizedSQLCipher in Pods (explicit)
+YYKit in Pods, no dependencies
+iOS-Echarts-iOS-Echarts in Pods, no dependencies
+iOS-Echarts in Pods, depends on:
+iOS-Echarts-iOS-Echarts in Pods (explicit)
+Pods-LGApp in Pods, depends on:
+AFNetworking in Pods (explicit)
+CocoaLumberjack in Pods (explicit)
+FBAEMKit in Pods (explicit)
+FBSDKCoreKit in Pods (explicit)
+FBSDKCoreKit_Basics in Pods (explicit)
+FBSDKShareKit in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+IGListDiffKit in Pods (explicit)
+IGListKit in Pods (explicit)
+Kingfisher in Pods (explicit)
+MagicalRecord in Pods (explicit)
+PromisesObjC in Pods (explicit)
+Realm in Pods (explicit)
+SQLiteRepairKit in Pods (explicit)
+WCDB.swift in Pods (explicit)
+WCDBOptimizedSQLCipher in Pods (explicit)
+YYKit in Pods (explicit)
+iOS-Echarts in Pods (explicit)

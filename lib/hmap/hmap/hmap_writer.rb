@@ -40,6 +40,9 @@ module HMap
             else
               Workspace.new_from_xcworkspaces(workspace_paths)
             end
+      if xcs.empty?
+        UserInterface.puts("\n[hmapfile] Gen [ERROR] path: #{Resolver.instance.installation_root} not contain .{xcworkspace,xcodeproj} file!".red)
+      end
       xcs.each do |xc|
         if clean
           xc.remove_hmap_settings!
