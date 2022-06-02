@@ -28,8 +28,7 @@ module HMap
 
     def save_hmap_settings!
       xcconfig_paths.each do |path|
-        all_non_framework = !all_non_framework_target_headers.nil? && !all_non_framework_target_headers.empty?
-        settings = Constants.instance.hmap_build_settings(build_as_framework?, use_vfs?, all_non_framework)
+        settings = Constants.instance.hmap_build_settings(build_as_framework?)
         XcodeprojHelper.new(path).add_build_settings_and_save(settings, use_origin: Resolver.instance.use_origin)
       end
     end
@@ -46,32 +45,20 @@ module HMap
       @xcconfig_paths = target.build_configuration_list.build_configurations.flat_map do |configuration|
         if configuration.is_a?(Constants::XCBuildConfiguration)
           bcr = configuration.base_configuration_reference
-          unless bcr.nil?
+          if bcr.nil?
+            ab_path = Pathname(project.project_dir + "hmap-#{target_name}.#{configuration.name}.xcconfig")
+            File.new(ab_path, 'w') unless ab_path.exist?
+            xc_ref = target.project.new_file(ab_path)
+            configuration.base_configuration_reference = xc_ref
+            target.project.save
+            ab_path
+          else
             s_path = PBXHelper.group_paths(bcr)
             x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
             File.expand_path File.join(project.project_dir, s_path, x)
           end
         end
       end.compact
-      #   @xcconfig_paths = TargetConfiguration.new_from_xc(target, project.project_dir).map do |c|
-      #     c.xcconfig_path unless c.xcconfig_path.nil?
-      #   end.compact
-      # @xcconfig_paths = bc.map(&:xcconfig_path).compact
-      # xc_type = 'XCConfigurationList'
-      # xcs = target.build_configuration_list.build_configurations
-      # @xcconfig_paths = xcs.map do |xc|
-      #   if xc.isa == xc_type
-      #     xc_path = xc.instance_variable_get('@simple_attributes_hash')['path'] || ''
-      #     { xc => File.join(project.project_dir, xc_path) }
-      #   else
-      #     # ab_path = Pathname(project.project_dir + "hmap-#{name}.#{xc.name}.xcconfig")
-      #     # File.new(ab_path, 'w') unless ab_path.exist?
-      #     # xc_ref = target.project.new_file(ab_path)
-      #     # xc.base_configuration_reference = xc_ref
-      #     # target.project.save
-      #     # ab_path
-      #   end
-      # end
     end
   end
 end

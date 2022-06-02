@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'xcconfig'
+
 module HMap
   # A collection of xcodeproj Helper functions used throughout hmap.
   class XcodeprojHelper
@@ -12,7 +14,7 @@ module HMap
     def initialize(path)
       xc = Pathname(path)
       @xcconfig_path = xc
-      @xcconfig = Xcodeproj::Config.new(xc)
+      @xcconfig = XCConfig.new(xc)
     end
 
     def add_build_settings_and_save(settings, use_origin: true)

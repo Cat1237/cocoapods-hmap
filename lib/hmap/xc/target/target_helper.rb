@@ -84,7 +84,7 @@ module HMap
         return @build_dir if defined?(@build_dir)
 
         b_d = xcconfig_paths.any? do |path|
-          xc = Xcodeproj::Config.new(path)
+          xc = XCConfig.new(path)
           !xc.attributes[Constants::CONFIGURATION_BUILD_DIR].nil?
         end
         @build_dir = target_name if b_d

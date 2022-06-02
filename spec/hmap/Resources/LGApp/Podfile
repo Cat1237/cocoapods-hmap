@@ -6,13 +6,13 @@ platform :ios, '9.0'
 # plugin 'cocoapods-mapfile'
 
 target 'LGApp' do
-  use_frameworks!
+  use_frameworks! :linkage =>:static
   pod 'AFNetworking'
   pod 'GoogleUtilities'
   pod 'MagicalRecord'
   pod 'CocoaLumberjack'
   pod 'IGListKit'
-  pod 'WCDB.swift'
+#  pod 'WCDB.swift'
   pod 'FBSDKShareKit'
   pod 'Realm'
   pod 'YYKit'

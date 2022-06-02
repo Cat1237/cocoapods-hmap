@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		099B91D1E4515D53D0032A13 /* Pods_LGApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F4F03AAB6A16F18CA19797 /* Pods_LGApp.framework */; };
+		456FE151F44A1E66167FC2F1 /* Pods_LGApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */; };
 		5419BF7026FDA91100436C47 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5419BF6F26FDA91100436C47 /* NotificationService.m */; };
 		5419BF7426FDA91100436C47 /* TestNoo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5419BF6C26FDA91100436C47 /* TestNoo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54FE8CF6279842BF000E8DBC /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CE6279842BF000E8DBC /* AppDelegate.h */; };
@@ -82,7 +82,7 @@
 		54FE8CF4279842BF000E8DBC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		54FE8CF5279842BF000E8DBC /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		603092A4D57B91683794A7E6 /* Pods-LGApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.release.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.release.xcconfig"; sourceTree = "<group>"; };
-		82F4F03AAB6A16F18CA19797 /* Pods_LGApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LGApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LGApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CEAF1AC44C027E9BF394EE4 /* Pods-LGApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A906E64C73E44E4204A297DB /* Pods-LGApp.debug copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug copy.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug copy.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				099B91D1E4515D53D0032A13 /* Pods_LGApp.framework in Frameworks */,
+				456FE151F44A1E66167FC2F1 /* Pods_LGApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +163,7 @@
 			children = (
 				5419BF5526FDA8BE00436C47 /* UserNotifications.framework */,
 				5419BF5726FDA8BF00436C47 /* UserNotificationsUI.framework */,
-				82F4F03AAB6A16F18CA19797 /* Pods_LGApp.framework */,
+				68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,6 +233,7 @@
 				54E57DB226CB93A7006CC049 /* Embed Frameworks */,
 				5419BF6226FDA8BF00436C47 /* Embed App Extensions */,
 				7418100AB68F0B77923639FA /* [CP] Embed Pods Frameworks */,
+				8AA10194379058ABD21D92E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -317,6 +318,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LGApp/Pods-LGApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8AA10194379058ABD21D92E3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LGApp/Pods-LGApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LGApp/Pods-LGApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LGApp/Pods-LGApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD2400B5D30A5DBB13CAFF81 /* [CP] Check Pods Manifest.lock */ = {

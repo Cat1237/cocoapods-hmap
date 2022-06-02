@@ -18,6 +18,6 @@ RSpec.describe 'hmapfile gen' do
   end
   it 'hmapfile gen' do
     path = File.expand_path('./Resources/LGApp', File.dirname(__FILE__))
-    HMap::Command.run(['gen', "--project-directory=#{path}"])
+    HMap::Command.run(['gen', "--project-directory=/Users/ws/Desktop/LGApp"])
   end
 end
