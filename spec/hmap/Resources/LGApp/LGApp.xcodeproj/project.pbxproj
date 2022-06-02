@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		541994472848F61500F78106 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5419BF5526FDA8BE00436C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5419BF5726FDA8BF00436C47 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		5419BF6C26FDA91100436C47 /* TestNoo.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TestNoo.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +146,7 @@
 				54FE8CE9279842BF000E8DBC /* ViewController.m */,
 				5420E751271021300090EF3A /* SceneDelegate.h */,
 				54FE8CEA279842BF000E8DBC /* SceneDelegate.m */,
+				541994472848F61500F78106 /* Config.xcconfig */,
 				54FE8CEB279842BF000E8DBC /* LGApp-Bridging-Header.h */,
 				54FE8CEC279842BF000E8DBC /* LaunchScreen.storyboard */,
 				54FE8CEE279842BF000E8DBC /* Main.storyboard */,
@@ -175,7 +177,6 @@
 				A906E64C73E44E4204A297DB /* Pods-LGApp.debug copy.xcconfig */,
 				603092A4D57B91683794A7E6 /* Pods-LGApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -675,7 +676,7 @@
 		};
 		54A9829726C55C9800FEA2A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8CEAF1AC44C027E9BF394EE4 /* Pods-LGApp.debug.xcconfig */;
+			baseConfigurationReference = 541994472848F61500F78106 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

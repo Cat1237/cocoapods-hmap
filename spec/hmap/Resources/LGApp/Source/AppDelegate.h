@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

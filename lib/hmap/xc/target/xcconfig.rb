@@ -44,6 +44,7 @@ module HMap
     def initialize(xcconfig_hash_or_file = {})
       @attributes = {}
       @includes = []
+      @include_attributes = {}
       merge!(extract_hash(xcconfig_hash_or_file))
     end
 

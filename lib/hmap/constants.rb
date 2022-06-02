@@ -137,7 +137,11 @@ module HMap
       %i[all_non_framework_target_headers own_target_headers all_product_headers project_headers].map do |type|
         key = build_setting_keys[type]
         value = xc_filenames[type]
-        ["-Xcc -#{key}", "-Xcc \"#{HMAP_GEN_DIR_VALUE}/#{value}\""].join(' ')
+        if key == :I
+          "-Xcc -#{key}\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
+        else
+          "-Xcc -#{key} -Xcc \"#{HMAP_GEN_DIR_VALUE}/#{value}\""
+        end
       end.join(' ')
     end
 
