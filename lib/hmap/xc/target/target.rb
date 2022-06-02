@@ -45,14 +45,15 @@ module HMap
       @xcconfig_paths = target.build_configuration_list.build_configurations.flat_map do |configuration|
         if configuration.is_a?(Constants::XCBuildConfiguration)
           bcr = configuration.base_configuration_reference
-          if bcr.nil?
-            ab_path = Pathname(project.project_dir + "hmap-#{target_name}.#{configuration.name}.xcconfig")
-            File.new(ab_path, 'w') unless ab_path.exist?
-            xc_ref = target.project.new_file(ab_path)
-            configuration.base_configuration_reference = xc_ref
-            target.project.save
-            ab_path
-          else
+          # if bcr.nil?
+          #   ab_path = Pathname(project.project_dir + "hmap-#{target_name}.#{configuration.name}.xcconfig")
+          #   File.new(ab_path, 'w') unless ab_path.exist?
+          #   xc_ref = target.project.new_file(ab_path)
+          #   configuration.base_configuration_reference = xc_ref
+          #   target.project.save
+          #   ab_path
+          # else
+          unless bcr.nil?
             s_path = PBXHelper.group_paths(bcr)
             x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
             File.expand_path File.join(project.project_dir, s_path, x)

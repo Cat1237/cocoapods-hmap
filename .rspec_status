@@ -2,5 +2,5 @@ example_id                            | status | run_time        |
 ------------------------------------- | ------ | --------------- |
 ./spec/hmap/hmap_reader_spec.rb[1:1]  | passed | 0.01035 seconds |
 ./spec/hmap/hmap_writer_spec.rb[1:1]  | passed | 0.0476 seconds  |
-./spec/hmap/hmapfile_gen_spec.rb[1:1] | passed | 0.48645 seconds |
-./spec/hmap/hmapfile_gen_spec.rb[1:2] | passed | 3.58 seconds    |
+./spec/hmap/hmapfile_gen_spec.rb[1:1] | passed | 0.51844 seconds |
+./spec/hmap/hmapfile_gen_spec.rb[1:2] | passed | 10.5 seconds    |

@@ -35,9 +35,12 @@ module HMap
     PBXBuildFile = Xcodeproj::Project::Object::PBXBuildFile
     PBXAggregateTarget = Xcodeproj::Project::Object::PBXAggregateTarget
 
-    HMAP_TARGET_ROOT = [BUILD_DIR_KEY, '..', '..', HMAP_DIR,
-                        PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
-                        TARGET_TEMP_DIR].join('/')
+    # HMAP_TARGET_ROOT = [BUILD_DIR_KEY, '..', '..', HMAP_DIR,
+    #                     PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
+    #                     TARGET_TEMP_DIR].join('/')
+    HMAP_TARGET_ROOT = [SRCROOT, HMAP_DIR,
+                           PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
+                          TARGET_TEMP_DIR].join('/')
 
     HMAP_GEN_DIR_ATTRIBUTE = { HMAP_GEN_DIR => HMAP_TARGET_ROOT }
 
@@ -131,11 +134,10 @@ module HMap
     end
 
     def build_setting_values_s
-      %i[all_product_headers].map do |type|
+      %i[all_non_framework_target_headers own_target_headers all_product_headers project_headers].map do |type|
         key = build_setting_keys[type]
         value = xc_filenames[type]
-        blank = ' ' unless key == :I
-        ["-Xcc -#{key}", "-Xcc \"#{HMAP_GEN_DIR_VALUE}/#{value}\""].join(blank || '')
+        ["-Xcc -#{key}", "-Xcc \"#{HMAP_GEN_DIR_VALUE}/#{value}\""].join(' ')
       end.join(' ')
     end
 

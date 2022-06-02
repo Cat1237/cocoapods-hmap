@@ -48,7 +48,8 @@ module HMap
     end
 
     def hmap_root
-      dir = build_root.dirname.dirname
+      # dir = build_root.dirname.dirname
+      dir = workspace_dir
       File.join(dir, Constants::HMAP_DIR)
     end
 

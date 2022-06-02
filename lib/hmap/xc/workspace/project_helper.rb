@@ -72,7 +72,8 @@ module HMap
       end
 
       def hmap_root
-        File.join(workspace.hmap_root, temp_name)
+        # File.join(workspace.hmap_root, temp_name)
+        File.join(project_dir, Constants::HMAP_DIR, temp_name)
       end
 
       def build_data_dir
