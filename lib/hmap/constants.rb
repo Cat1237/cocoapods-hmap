@@ -142,9 +142,7 @@ module HMap
     end
 
     def build_setting_values_i(build_as_framework)
-      a = %i[all_non_framework_target_headers own_target_headers]
-      a << :all_target_headers unless build_as_framework
-      a.map do |type|
+      %i[all_non_framework_target_headers own_target_headers].map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
       end.join(' ')
@@ -201,7 +199,8 @@ module HMap
                [type, case type
                       when :all_product_headers then file_name
                       else
-                        "#{Constants::PRODUCT_NAME_VALUE}-#{file_name}"
+                        "#{file_name}"
+                        # "#{Constants::PRODUCT_NAME_VALUE}-#{file_name}"
                       end]
              end]
     end
