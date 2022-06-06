@@ -1,6 +1,6 @@
-example_id                            | status | run_time        |
-------------------------------------- | ------ | --------------- |
-./spec/hmap/hmap_reader_spec.rb[1:1]  | passed | 0.01035 seconds |
-./spec/hmap/hmap_writer_spec.rb[1:1]  | passed | 0.0476 seconds  |
-./spec/hmap/hmapfile_gen_spec.rb[1:1] | passed | 0.42652 seconds |
-./spec/hmap/hmapfile_gen_spec.rb[1:2] | passed | 10.79 seconds   |
+example_id                            | status | run_time               |
+------------------------------------- | ------ | ---------------------- |
+./spec/hmap/hmap_reader_spec.rb[1:1]  | passed | 0.01035 seconds        |
+./spec/hmap/hmap_writer_spec.rb[1:1]  | passed | 0.0476 seconds         |
+./spec/hmap/hmapfile_gen_spec.rb[1:1] | passed | 0.4127 seconds         |
+./spec/hmap/hmapfile_gen_spec.rb[1:2] | passed | 1 minute 11.27 seconds |

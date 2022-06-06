@@ -1,1 +1,1 @@
-{"case-sensitive":"false","roots":[],"version":0}
+{'version':0,'case-sensitive':'false','roots':[{'type':'directory','name':"/Users/ws/Library/Developer/Xcode/DerivedData/LGApp-fosvozugmnvzjphepojeuknaclrd/Build/Products/Debug copy-iphoneos/LGApp-dev/LGApp_cat.app/Headers",'contents':[{'type':'file','name':"AppDelegate.h",'external-contents':"/Users/ws/Documents/MyLib/cocoapods-hmap/spec/hmap/Resources/LGApp/Source/AppDelegate.h"}]}]}

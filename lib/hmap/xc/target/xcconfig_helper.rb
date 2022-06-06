@@ -40,10 +40,9 @@ module HMap
         @xcconfig.attributes[key] = value
       else
         save_origin = save_build_setting(key)
-        e_value = '$(inherited) ' + value
-        e_value = "#{e_value} ${#{save_xckey(key)}} " if use_origin && !save_origin.nil?
-        @xcconfig.attributes[hmap_xckey(key)] = e_value
-        @xcconfig.attributes[key] = "${#{hmap_xckey(key)}}"
+        value = "#{value} ${#{save_xckey(key)}} " if use_origin && !save_origin.nil?
+        @xcconfig.attributes[hmap_xckey(key)] = value
+        @xcconfig.attributes[key] = "${#{hmap_xckey(key)}} $(inherited)"
       end
     end
 

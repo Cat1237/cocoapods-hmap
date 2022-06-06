@@ -16,37 +16,52 @@ module HMap
       define_method(:all_non_framework_target_headers) do
         return if build_as_framework?
 
+        return @all_non_framework_target_headers if defined? @all_non_framework_target_headers
+
         p_h = public_entrys + private_entrys
-        p_h.inject({}) do |sum, entry|
+        @all_non_framework_target_headers = p_h.inject({}) do |sum, entry|
           sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
       end
 
       # all_targets include header full module path
       define_method(:all_target_headers) do
+        return @all_target_headers if defined? @all_target_headers
+
         p_h = public_entrys + private_entrys
-        p_h.inject({}) do |sum, entry|
+        @all_target_headers = p_h.inject({}) do |sum, entry|
           sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
           sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
       end
 
       define_method(:project_headers) do
+        return @project_headers if defined? @project_headers
+
         p_h = public_entrys + private_entrys
         hs = p_h.inject({}) do |sum, entry|
           sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
         end
-        project_entrys.inject(hs) do |sum, entry|
+        if app_target?
+          project.workspace.projects.each do |pr|
+            next if pr == project
+
+            hs.merge!(pr.project_headers) { |_, v1, _| v1 }
+          end
+        end
+        @project_headers = project_entrys.inject(hs) do |sum, entry|
           sum.merge!(entry.project_buckets_extra) { |_, v1, _| v1 }
         end
       end
 
       define_method(:own_target_headers) do
+        return @own_target_headers if defined? @own_target_headers
+
         headers = public_entrys + private_entrys
         hs = headers.inject({}) do |sum, entry|
           sum.merge!(entry.module_buckets(product_name)) { |_, v1, _| v1 }
         end
-        project_entrys.inject(hs) do |sum, entry|
+        @own_target_headers = project_entrys.inject(hs) do |sum, entry|
           sum.merge!(entry.project_buckets) { |_, v1, _| v1 }
           sum.merge!(entry.full_module_buckets(product_name)) { |_, v1, _| v1 }
         end
@@ -65,7 +80,10 @@ module HMap
       end
 
       def product_name
-        target.product_name.gsub(/[-]/, '_')
+        product_name = target.build_settings(target.build_configurations.first.name)['PRODUCT_NAME']
+        return target_name.gsub(/-/, '_') if product_name.nil? || product_name.include?('TARGET_NAME')
+
+        product_name
       end
 
       def full_product_name
@@ -83,11 +101,12 @@ module HMap
       def build_dir
         return @build_dir if defined?(@build_dir)
 
-        b_d = xcconfig_paths.any? do |path|
-          xc = XCConfig.new(path)
-          !xc.attributes[Constants::CONFIGURATION_BUILD_DIR].nil?
-        end
+        b_d = xcconfig_paths.none? { |path| XCConfig.new(path).attributes[Constants::CONFIGURATION_BUILD_DIR].nil? }
         @build_dir = target_name if b_d
+      end
+
+      def app_target?
+        Xcodeproj::Constants::PRODUCT_UTI_EXTENSIONS[target.symbol_type] == 'app'
       end
 
       def build_as_framework?

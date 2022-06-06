@@ -82,5 +82,24 @@ module HMap
         sum.merge!(entry.all_target_headers) { |_, v1, _| v1 }
       end
     end
+
+    def xcconfig_paths
+      return @xcconfig_paths if defined?(@xcconfig_paths)
+
+      @xcconfig_paths = projects.flat_map do |project|
+        project.targets.flat_map do |target|
+          target.target.build_configurations.map do |configuration|
+            next unless configuration.is_a?(Constants::XCBuildConfiguration)
+
+            bcr = configuration.base_configuration_reference
+            next if bcr.nil?
+
+            s_path = PBXHelper.group_paths(bcr)
+            x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
+            File.expand_path(File.join(project.project_dir, s_path, x))
+          end.compact
+        end
+      end.uniq
+    end
   end
 end

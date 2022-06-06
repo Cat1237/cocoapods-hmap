@@ -39,8 +39,8 @@ module HMap
     #                     PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
     #                     TARGET_TEMP_DIR].join('/')
     HMAP_TARGET_ROOT = [SRCROOT, HMAP_DIR,
-                           PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
-                          TARGET_TEMP_DIR].join('/')
+                        PROJECT_TEMP_DIR, CONFIGURATION_EFFECTIVE_PLATFORM,
+                        TARGET_TEMP_DIR].join('/')
 
     HMAP_GEN_DIR_ATTRIBUTE = { HMAP_GEN_DIR => HMAP_TARGET_ROOT }
 
@@ -101,23 +101,23 @@ module HMap
       xc_filenames[type]
     end
 
-    def hmap_build_settings(build_as_framework)
-      build_settings(build_as_framework)
+    def hmap_build_settings
+      build_settings
     end
 
     private
 
-    def build_settings(build_as_framework)
-      return @build_as_framework[build_as_framework] unless @build_as_framework[build_as_framework].nil?
+    def build_settings
+      return @build_settings if defined? @build_settings
 
       attributes = HMAP_GEN_DIR_ATTRIBUTE
-      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i(build_as_framework)
+      attributes[HEADER_SEARCH_PATHS] = build_setting_values_i
       attributes[OTHER_CFLAGS] = build_setting_values_c
       attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
       attributes[OTHER_SWIFT_FLAGS] = build_setting_values_s
       attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
       attributes[USE_HEADERMAP] = 'NO'
-      @build_as_framework[build_as_framework] = attributes
+      @build_settings = attributes
     end
 
     def filenames
@@ -145,7 +145,7 @@ module HMap
       end.join(' ')
     end
 
-    def build_setting_values_i(build_as_framework)
+    def build_setting_values_i
       %i[all_non_framework_target_headers own_target_headers].map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
@@ -203,8 +203,8 @@ module HMap
                [type, case type
                       when :all_product_headers then file_name
                       else
-                        "#{file_name}"
-                        # "#{Constants::PRODUCT_NAME_VALUE}-#{file_name}"
+                        # file_name.to_s
+                        "#{Constants::PRODUCT_NAME_VALUE}-#{file_name}"
                       end]
              end]
     end

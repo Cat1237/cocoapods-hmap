@@ -37,6 +37,11 @@ module HMap
     #
     attr_accessor :attributes
 
+    # @return [Array] The list of the configuration files included by this
+    #         configuration file (`#include "SomeConfig"`).
+    #
+    attr_accessor :includes
+
     # @return [Hash{Symbol => Set<String>}] The other linker flags by key.
     #         Xcodeproj handles them in a dedicated way to prevent duplication
     #         of the libraries and of the frameworks.
@@ -53,7 +58,7 @@ module HMap
     end
 
     def ==(other)
-      other.attributes == attributes
+      other.attributes == attributes && other.includes = includes
     end
 
     # @!group Serialization
@@ -99,8 +104,6 @@ module HMap
     # @return [Hash] The hash representation
     #
     def to_hash(prefix = nil)
-      list = []
-
       result = attributes.dup
       result.reject! { |_, v| INHERITED.any? { |i| i == v.to_s.strip } }
       if prefix
@@ -192,14 +195,14 @@ module HMap
       hash = {}
       string.split("\n").each do |line|
         uncommented_line = strip_comment(line)
-        if include = extract_include(uncommented_line)
-          @includes.push normalized_xcconfig_path(include)
-        else
+        e = extract_include(uncommented_line)
+        if e.nil?
           key, value = extract_key_value(uncommented_line)
           next unless key
-
           value.gsub!(INHERITED_REGEXP) { |m| hash.fetch(key, m) }
           hash[key] = value
+        else
+          @includes.push normalized_xcconfig_path(e)
         end
       end
       hash

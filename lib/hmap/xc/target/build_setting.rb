@@ -53,7 +53,7 @@ module HMap
       return @file_name if defined? @file_name
 
       product_name = @context.product_name if @context.respond_to? :product_name
-      @file_name = Constants.instance.full_hmap_filename(type)
+      @file_name = Constants.instance.full_hmap_filename(type, product_name)
     end
 
     def hmap_filepath(need_platform)

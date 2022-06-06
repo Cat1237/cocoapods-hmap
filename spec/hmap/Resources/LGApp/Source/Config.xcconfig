@@ -1,14 +1,1 @@
 #include "/Users/ws/Documents/MyLib/cocoapods-hmap/spec/hmap/Resources/LGApp/Pods/Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"
-HEADER_SEARCH_PATHS = ${HMAP_HEADER_SEARCH_PATHS}
-HMAP_GEN_DIR = ${SRCROOT}/HMap/${PROJECT}.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/${TARGET_NAME}.build
-HMAP_HEADER_SEARCH_PATHS = $(inherited) "${HMAP_GEN_DIR}/all-non-framework-target-headers.hmap" "${HMAP_GEN_DIR}/own-target-headers.hmap"
-HMAP_OTHER_CFLAGS = $(inherited) -ivfsoverlay "${HMAP_GEN_DIR}/all-product-headers.yaml"
-HMAP_OTHER_CPLUSPLUSFLAGS = $(inherited) -ivfsoverlay "${HMAP_GEN_DIR}/all-product-headers.yaml"
-HMAP_OTHER_SWIFT_FLAGS = $(inherited) -Xcc -I"${HMAP_GEN_DIR}/all-non-framework-target-headers.hmap" -Xcc -I"${HMAP_GEN_DIR}/own-target-headers.hmap" -Xcc -ivfsoverlay -Xcc "${HMAP_GEN_DIR}/all-product-headers.yaml" -Xcc -iquote -Xcc "${HMAP_GEN_DIR}/project-headers.hmap"
-HMAP_USER_HEADER_SEARCH_PATHS = $(inherited) "${HMAP_GEN_DIR}/project-headers.hmap"
-HMAP_USE_HEADERMAP = $(inherited) NO
-OTHER_CFLAGS = ${HMAP_OTHER_CFLAGS}
-OTHER_CPLUSPLUSFLAGS = ${HMAP_OTHER_CPLUSPLUSFLAGS}
-OTHER_SWIFT_FLAGS = ${HMAP_OTHER_SWIFT_FLAGS}
-USER_HEADER_SEARCH_PATHS = ${HMAP_USER_HEADER_SEARCH_PATHS}
-USE_HEADERMAP = ${HMAP_USE_HEADERMAP}

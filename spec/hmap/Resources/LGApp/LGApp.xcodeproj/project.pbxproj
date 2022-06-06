@@ -10,6 +10,19 @@
 		456FE151F44A1E66167FC2F1 /* Pods_LGApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */; };
 		5419BF7026FDA91100436C47 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5419BF6F26FDA91100436C47 /* NotificationService.m */; };
 		5419BF7426FDA91100436C47 /* TestNoo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5419BF6C26FDA91100436C47 /* TestNoo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		54D44B70284DF8C100BEFB0B /* LGApp-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CEB279842BF000E8DBC /* LGApp-Bridging-Header.h */; };
+		54D44B71284DF8C100BEFB0B /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CE6279842BF000E8DBC /* AppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54D44B72284DF8C100BEFB0B /* SceneDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CF5279842BF000E8DBC /* SceneDelegate.h */; };
+		54D44B73284DF8C100BEFB0B /* ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CF4279842BF000E8DBC /* ViewController.h */; };
+		54D44B75284DF8C100BEFB0B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CE9279842BF000E8DBC /* ViewController.m */; };
+		54D44B76284DF8C100BEFB0B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CEA279842BF000E8DBC /* SceneDelegate.m */; };
+		54D44B77284DF8C100BEFB0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CF0279842BF000E8DBC /* main.m */; };
+		54D44B78284DF8C100BEFB0B /* TestSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CE7279842BF000E8DBC /* TestSwift.swift */; };
+		54D44B79284DF8C100BEFB0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CF1279842BF000E8DBC /* AppDelegate.m */; };
+		54D44B7D284DF8C100BEFB0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CEE279842BF000E8DBC /* Main.storyboard */; };
+		54D44B7E284DF8C100BEFB0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CE8279842BF000E8DBC /* Assets.xcassets */; };
+		54D44B7F284DF8C100BEFB0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CEC279842BF000E8DBC /* LaunchScreen.storyboard */; };
+		54D44B82284DF8C100BEFB0B /* TestNoo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5419BF6C26FDA91100436C47 /* TestNoo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54FE8CF6279842BF000E8DBC /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CE6279842BF000E8DBC /* AppDelegate.h */; };
 		54FE8CF7279842BF000E8DBC /* TestSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CE7279842BF000E8DBC /* TestSwift.swift */; };
 		54FE8CF8279842BF000E8DBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CE8279842BF000E8DBC /* Assets.xcassets */; };
@@ -22,10 +35,18 @@
 		54FE8CFF279842BF000E8DBC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CF1279842BF000E8DBC /* AppDelegate.m */; };
 		54FE8D01279842BF000E8DBC /* ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CF4279842BF000E8DBC /* ViewController.h */; };
 		54FE8D02279842BF000E8DBC /* SceneDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CF5279842BF000E8DBC /* SceneDelegate.h */; };
+		93594F733FE2F5E1542FB3D2 /* Pods_LGApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		5419BF7226FDA91100436C47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54A9827526C55C9600FEA2A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5419BF6B26FDA91100436C47;
+			remoteInfo = TestNoo;
+		};
+		54D44B6D284DF8C100BEFB0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 54A9827526C55C9600FEA2A4 /* Project object */;
 			proxyType = 1;
@@ -42,6 +63,27 @@
 			dstSubfolderSpec = 13;
 			files = (
 				5419BF7426FDA91100436C47 /* TestNoo.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54D44B80284DF8C100BEFB0B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54D44B81284DF8C100BEFB0B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				54D44B82284DF8C100BEFB0B /* TestNoo.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +110,9 @@
 		5419BF7126FDA91100436C47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5420E751271021300090EF3A /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneDelegate.h; path = ../TestNoo/SceneDelegate.h; sourceTree = "<group>"; };
 		54A9827D26C55C9600FEA2A4 /* LGApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		54AC191C0E86C5EE3673E891 /* Pods-LGApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"; sourceTree = "<group>"; };
+		54D44B8A284DF8C100BEFB0B /* LGApp_cat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGApp_cat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		54D44B8B284DF8C100BEFB0B /* LGApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LGApp copy-Info.plist"; path = "/Users/ws/Documents/MyLib/cocoapods-hmap/spec/hmap/Resources/LGApp/LGApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		54FE8CE6279842BF000E8DBC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		54FE8CE7279842BF000E8DBC /* TestSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwift.swift; sourceTree = "<group>"; };
 		54FE8CE8279842BF000E8DBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,10 +127,9 @@
 		54FE8CF3279842BF000E8DBC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54FE8CF4279842BF000E8DBC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		54FE8CF5279842BF000E8DBC /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		603092A4D57B91683794A7E6 /* Pods-LGApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.release.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.release.xcconfig"; sourceTree = "<group>"; };
 		68C907F87F871CD34B59AAD9 /* Pods_LGApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LGApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8CEAF1AC44C027E9BF394EE4 /* Pods-LGApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"; sourceTree = "<group>"; };
-		A906E64C73E44E4204A297DB /* Pods-LGApp.debug copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug copy.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug copy.xcconfig"; sourceTree = "<group>"; };
+		73606D7812D7BAA2AF438A5A /* Pods-LGApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.release.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.release.xcconfig"; sourceTree = "<group>"; };
+		CDC0B158720977955A517CED /* Pods-LGApp.debug copy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug copy.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug copy.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +145,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				456FE151F44A1E66167FC2F1 /* Pods_LGApp.framework in Frameworks */,
+				93594F733FE2F5E1542FB3D2 /* Pods_LGApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54D44B7A284DF8C100BEFB0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +177,7 @@
 				54A9827E26C55C9600FEA2A4 /* Products */,
 				58F1FB6AF843A63F55631DC0 /* Frameworks */,
 				B69D7DFAD2B123EFEA89B6E9 /* Pods */,
+				54D44B8B284DF8C100BEFB0B /* LGApp copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +186,7 @@
 			children = (
 				54A9827D26C55C9600FEA2A4 /* LGApp.app */,
 				5419BF6C26FDA91100436C47 /* TestNoo.appex */,
+				54D44B8A284DF8C100BEFB0B /* LGApp_cat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,9 +227,9 @@
 		B69D7DFAD2B123EFEA89B6E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8CEAF1AC44C027E9BF394EE4 /* Pods-LGApp.debug.xcconfig */,
-				A906E64C73E44E4204A297DB /* Pods-LGApp.debug copy.xcconfig */,
-				603092A4D57B91683794A7E6 /* Pods-LGApp.release.xcconfig */,
+				54AC191C0E86C5EE3673E891 /* Pods-LGApp.debug.xcconfig */,
+				CDC0B158720977955A517CED /* Pods-LGApp.debug copy.xcconfig */,
+				73606D7812D7BAA2AF438A5A /* Pods-LGApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -198,6 +252,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54D44B6F284DF8C100BEFB0B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54D44B71284DF8C100BEFB0B /* AppDelegate.h in Headers */,
+				54D44B70284DF8C100BEFB0B /* LGApp-Bridging-Header.h in Headers */,
+				54D44B72284DF8C100BEFB0B /* SceneDelegate.h in Headers */,
+				54D44B73284DF8C100BEFB0B /* ViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +300,7 @@
 				5419BF6226FDA8BF00436C47 /* Embed App Extensions */,
 				7418100AB68F0B77923639FA /* [CP] Embed Pods Frameworks */,
 				8AA10194379058ABD21D92E3 /* [CP] Copy Pods Resources */,
+				54D44B6A284DF59800BEFB0B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -244,6 +310,28 @@
 			name = LGApp;
 			productName = LGApp;
 			productReference = 54A9827D26C55C9600FEA2A4 /* LGApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		54D44B6B284DF8C100BEFB0B /* LGApp-dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54D44B86284DF8C100BEFB0B /* Build configuration list for PBXNativeTarget "LGApp-dev" */;
+			buildPhases = (
+				54D44B6F284DF8C100BEFB0B /* Headers */,
+				54D44B74284DF8C100BEFB0B /* Sources */,
+				54D44B7A284DF8C100BEFB0B /* Frameworks */,
+				54D44B7C284DF8C100BEFB0B /* Resources */,
+				54D44B80284DF8C100BEFB0B /* Embed Frameworks */,
+				54D44B81284DF8C100BEFB0B /* Embed App Extensions */,
+				54D44B85284DF8C100BEFB0B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				54D44B6C284DF8C100BEFB0B /* PBXTargetDependency */,
+			);
+			name = "LGApp-dev";
+			productName = LGApp;
+			productReference = 54D44B8A284DF8C100BEFB0B /* LGApp_cat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,6 +367,7 @@
 			targets = (
 				54A9827C26C55C9600FEA2A4 /* LGApp */,
 				5419BF6B26FDA91100436C47 /* TestNoo */,
+				54D44B6B284DF8C100BEFB0B /* LGApp-dev */,
 			);
 		};
 /* End PBXProject section */
@@ -301,9 +390,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54D44B7C284DF8C100BEFB0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54D44B7D284DF8C100BEFB0B /* Main.storyboard in Resources */,
+				54D44B7E284DF8C100BEFB0B /* Assets.xcassets in Resources */,
+				54D44B7F284DF8C100BEFB0B /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		54D44B6A284DF59800BEFB0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"${PRODUCT_NAME}--${TARGET_NAME}\" 1>/dev/ttys002\n";
+		};
+		54D44B85284DF8C100BEFB0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"${PRODUCT_NAME}--${TARGET_NAME}\" 1>/dev/ttys002\n";
+		};
 		7418100AB68F0B77923639FA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,6 +516,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		54D44B74284DF8C100BEFB0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54D44B75284DF8C100BEFB0B /* ViewController.m in Sources */,
+				54D44B76284DF8C100BEFB0B /* SceneDelegate.m in Sources */,
+				54D44B77284DF8C100BEFB0B /* main.m in Sources */,
+				54D44B78284DF8C100BEFB0B /* TestSwift.swift in Sources */,
+				54D44B79284DF8C100BEFB0B /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -390,6 +535,11 @@
 			isa = PBXTargetDependency;
 			target = 5419BF6B26FDA91100436C47 /* TestNoo */;
 			targetProxy = 5419BF7226FDA91100436C47 /* PBXContainerItemProxy */;
+		};
+		54D44B6C284DF8C100BEFB0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5419BF6B26FDA91100436C47 /* TestNoo */;
+			targetProxy = 54D44B6D284DF8C100BEFB0B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -534,7 +684,7 @@
 		};
 		54A005CB26E5F10600158067 /* Debug copy */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A906E64C73E44E4204A297DB /* Pods-LGApp.debug copy.xcconfig */;
+			baseConfigurationReference = CDC0B158720977955A517CED /* Pods-LGApp.debug copy.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -706,7 +856,7 @@
 		};
 		54A9829826C55C9800FEA2A4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 603092A4D57B91683794A7E6 /* Pods-LGApp.release.xcconfig */;
+			baseConfigurationReference = 73606D7812D7BAA2AF438A5A /* Pods-LGApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -727,6 +877,92 @@
 				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.logic.LGApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/LGApp-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		54D44B87284DF8C100BEFB0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W58C86W5P2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "LGApp copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.logic.LGApp;
+				PRODUCT_NAME = LGApp_cat;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/LGApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		54D44B88284DF8C100BEFB0B /* Debug copy */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W58C86W5P2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "LGApp copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.logic.LGApp;
+				PRODUCT_NAME = LGApp_cat;
+				SWIFT_OBJC_BRIDGING_HEADER = "Source/LGApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug copy";
+		};
+		54D44B89284DF8C100BEFB0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W58C86W5P2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "LGApp copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.logic.LGApp;
+				PRODUCT_NAME = LGApp_cat;
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/LGApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -762,6 +998,16 @@
 				54A9829726C55C9800FEA2A4 /* Debug */,
 				54A005CB26E5F10600158067 /* Debug copy */,
 				54A9829826C55C9800FEA2A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		54D44B86284DF8C100BEFB0B /* Build configuration list for PBXNativeTarget "LGApp-dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54D44B87284DF8C100BEFB0B /* Debug */,
+				54D44B88284DF8C100BEFB0B /* Debug copy */,
+				54D44B89284DF8C100BEFB0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

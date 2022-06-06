@@ -28,7 +28,7 @@ module HMap
 
     def save_hmap_settings!
       xcconfig_paths.each do |path|
-        settings = Constants.instance.hmap_build_settings(build_as_framework?)
+        settings = Constants.instance.hmap_build_settings
         XcodeprojHelper.new(path).add_build_settings_and_save(settings, use_origin: Resolver.instance.use_origin)
       end
     end
@@ -48,11 +48,14 @@ module HMap
           unless bcr.nil?
             s_path = PBXHelper.group_paths(bcr)
             x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
-            File.expand_path File.join(project.project_dir, s_path, x)
+            path = File.expand_path(File.join(project.project_dir, s_path, x))
+            xc = XCConfig.new(path)
+            inc = xc.includes
+            path if inc.empty? || project.workspace.xcconfig_paths.none? { |pa| inc.include?(pa) }
           end
         end
       end.compact
-     
+
       # @xcconfig_paths = target.build_configuration_list.build_configurations.flat_map do |configuration|
       #   if configuration.is_a?(Constants::XCBuildConfiguration)
       #     bcr = configuration.base_configuration_reference
