@@ -50,7 +50,7 @@ module HMap
             x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
             path = File.expand_path(File.join(project.project_dir, s_path, x))
             xc = XCConfig.new(path)
-            inc = xc.includes
+            inc = xc.includes_paths
             path if inc.empty? || project.workspace.xcconfig_paths.none? { |pa| inc.include?(pa) }
           end
         end

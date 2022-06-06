@@ -1,1 +1,3 @@
+//#include "../../../Pods/Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"
 #include "/Users/ws/Documents/MyLib/cocoapods-hmap/spec/hmap/Resources/LGApp/Pods/Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"
+

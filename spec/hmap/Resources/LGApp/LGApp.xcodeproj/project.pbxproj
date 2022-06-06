@@ -23,6 +23,8 @@
 		54D44B7E284DF8C100BEFB0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CE8279842BF000E8DBC /* Assets.xcassets */; };
 		54D44B7F284DF8C100BEFB0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CEC279842BF000E8DBC /* LaunchScreen.storyboard */; };
 		54D44B82284DF8C100BEFB0B /* TestNoo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5419BF6C26FDA91100436C47 /* TestNoo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		54D44B92284E3BB200BEFB0B /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 54D44B91284E3BB200BEFB0B /* Config.xcconfig */; };
+		54D44B93284E3BB200BEFB0B /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 54D44B91284E3BB200BEFB0B /* Config.xcconfig */; };
 		54FE8CF6279842BF000E8DBC /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 54FE8CE6279842BF000E8DBC /* AppDelegate.h */; };
 		54FE8CF7279842BF000E8DBC /* TestSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FE8CE7279842BF000E8DBC /* TestSwift.swift */; };
 		54FE8CF8279842BF000E8DBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54FE8CE8279842BF000E8DBC /* Assets.xcassets */; };
@@ -101,7 +103,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		541994472848F61500F78106 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		5419BF5526FDA8BE00436C47 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5419BF5726FDA8BF00436C47 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		5419BF6C26FDA91100436C47 /* TestNoo.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TestNoo.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +114,7 @@
 		54AC191C0E86C5EE3673E891 /* Pods-LGApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LGApp.debug.xcconfig"; path = "Target Support Files/Pods-LGApp/Pods-LGApp.debug.xcconfig"; sourceTree = "<group>"; };
 		54D44B8A284DF8C100BEFB0B /* LGApp_cat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LGApp_cat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54D44B8B284DF8C100BEFB0B /* LGApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LGApp copy-Info.plist"; path = "/Users/ws/Documents/MyLib/cocoapods-hmap/spec/hmap/Resources/LGApp/LGApp copy-Info.plist"; sourceTree = "<absolute>"; };
+		54D44B91284E3BB200BEFB0B /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		54FE8CE6279842BF000E8DBC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		54FE8CE7279842BF000E8DBC /* TestSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwift.swift; sourceTree = "<group>"; };
 		54FE8CE8279842BF000E8DBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -191,16 +193,32 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		54D44B8F284E3BB200BEFB0B /* mm */ = {
+			isa = PBXGroup;
+			children = (
+				54D44B90284E3BB200BEFB0B /* nn */,
+			);
+			path = mm;
+			sourceTree = "<group>";
+		};
+		54D44B90284E3BB200BEFB0B /* nn */ = {
+			isa = PBXGroup;
+			children = (
+				54D44B91284E3BB200BEFB0B /* Config.xcconfig */,
+			);
+			path = nn;
+			sourceTree = "<group>";
+		};
 		54FE8CE5279842BF000E8DBC /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				54D44B8F284E3BB200BEFB0B /* mm */,
 				54FE8CE6279842BF000E8DBC /* AppDelegate.h */,
 				54FE8CE7279842BF000E8DBC /* TestSwift.swift */,
 				54FE8CE8279842BF000E8DBC /* Assets.xcassets */,
 				54FE8CE9279842BF000E8DBC /* ViewController.m */,
 				5420E751271021300090EF3A /* SceneDelegate.h */,
 				54FE8CEA279842BF000E8DBC /* SceneDelegate.m */,
-				541994472848F61500F78106 /* Config.xcconfig */,
 				54FE8CEB279842BF000E8DBC /* LGApp-Bridging-Header.h */,
 				54FE8CEC279842BF000E8DBC /* LaunchScreen.storyboard */,
 				54FE8CEE279842BF000E8DBC /* Main.storyboard */,
@@ -384,6 +402,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54D44B92284E3BB200BEFB0B /* Config.xcconfig in Resources */,
 				54FE8CFD279842BF000E8DBC /* Main.storyboard in Resources */,
 				54FE8CF8279842BF000E8DBC /* Assets.xcassets in Resources */,
 				54FE8CFC279842BF000E8DBC /* LaunchScreen.storyboard in Resources */,
@@ -394,6 +413,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54D44B93284E3BB200BEFB0B /* Config.xcconfig in Resources */,
 				54D44B7D284DF8C100BEFB0B /* Main.storyboard in Resources */,
 				54D44B7E284DF8C100BEFB0B /* Assets.xcassets in Resources */,
 				54D44B7F284DF8C100BEFB0B /* LaunchScreen.storyboard in Resources */,
@@ -714,6 +734,7 @@
 		};
 		54A9829426C55C9800FEA2A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54D44B91284E3BB200BEFB0B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -826,7 +847,7 @@
 		};
 		54A9829726C55C9800FEA2A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 541994472848F61500F78106 /* Config.xcconfig */;
+			baseConfigurationReference = 54D44B91284E3BB200BEFB0B /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

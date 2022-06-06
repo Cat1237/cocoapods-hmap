@@ -40,7 +40,7 @@ module HMap
     # @return [Array] The list of the configuration files included by this
     #         configuration file (`#include "SomeConfig"`).
     #
-    attr_accessor :includes
+    attr_accessor :includes_paths
 
     # @return [Hash{Symbol => Set<String>}] The other linker flags by key.
     #         Xcodeproj handles them in a dedicated way to prevent duplication
@@ -51,6 +51,7 @@ module HMap
       @includes = []
       @include_attributes = {}
       merge!(extract_hash(xcconfig_hash_or_file))
+      @includes_paths = @includes.map { |i| File.expand_path(i, @filepath.dirname) }
     end
 
     def inspect
@@ -58,7 +59,7 @@ module HMap
     end
 
     def ==(other)
-      other.attributes == attributes && other.includes = includes
+      other.attributes == attributes && other.includes_paths = @includes_paths
     end
 
     # @!group Serialization
