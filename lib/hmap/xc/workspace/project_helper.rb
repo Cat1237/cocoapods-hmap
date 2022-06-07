@@ -37,13 +37,13 @@ module HMap
         hs = targets.inject({}) do |sum, entry|
           sum.merge!(entry.project_headers) { |_, v1, _| v1 }
         end
-        if targets.any?(&:app_target?)
-          workspace.projects.each do |pr|
-            next if pr == self
+        # if targets.any?(&:app_target?)
+        #   workspace.projects.each do |pr|
+        #     next if pr == self
 
-            hs.merge!(pr.project_headers) { |_, v1, _| v1 }
-          end
-        end
+        #     hs.merge!(pr.project_headers) { |_, v1, _| v1 }
+        #   end
+        # end
         @project_headers = project_entrys.inject(hs) do |sum, entry|
           sum.merge!(entry.project_buckets_extra) { |_, v1, _| v1 }
         end
