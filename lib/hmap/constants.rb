@@ -115,7 +115,7 @@ module HMap
       attributes[OTHER_CFLAGS] = build_setting_values_c
       attributes[OTHER_CPLUSPLUSFLAGS] = build_setting_values_c
       attributes[OTHER_SWIFT_FLAGS] = build_setting_values_s
-      attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
+      # attributes[USER_HEADER_SEARCH_PATHS] = build_setting_values_iquote
       attributes[USE_HEADERMAP] = 'NO'
       @build_settings = attributes
     end
@@ -146,7 +146,7 @@ module HMap
     end
 
     def build_setting_values_i
-      %i[all_non_framework_target_headers own_target_headers].map do |type|
+      %i[all_non_framework_target_headers own_target_headers project_headers].map do |type|
         value = xc_filenames[type]
         "\"#{HMAP_GEN_DIR_VALUE}/#{value}\""
       end.join(' ')

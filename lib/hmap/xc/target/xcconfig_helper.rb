@@ -42,7 +42,9 @@ module HMap
         save_origin = save_build_setting(key)
         value = "#{value} ${#{save_xckey(key)}} " if use_origin && !save_origin.nil?
         @xcconfig.attributes[hmap_xckey(key)] = value
-        @xcconfig.attributes[key] = "${#{hmap_xckey(key)}} $(inherited)"
+        h_value = "${#{hmap_xckey(key)}}"
+        h_value += ' $(inherited)' unless key == Constants::USE_HEADERMAP
+        @xcconfig.attributes[key] = h_value
       end
     end
 
