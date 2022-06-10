@@ -40,7 +40,7 @@ module HMap
 
       def run
         UserInterface.puts "\n[hmapfile-from-json] start"
-        if File.exist?(@json_path) && File.exist?(@output_path)
+        if File.exist?(@json_path)
           require 'json'
           json_file = File.read(@json_path)
           json = JSON.parse(json_file)

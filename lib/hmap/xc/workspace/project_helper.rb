@@ -9,11 +9,20 @@ module HMap
       define_method(:all_product_headers) do
         return @all_product_headers if defined? @all_product_headers
 
-        @all_product_headers = targets.each_with_object({}) do |target, sum|
+        hs = targets.each_with_object({}) do |target, sum|
           next if target.all_product_headers.nil?
 
           sum.merge!(target.all_product_headers) { |_, oldval, newval| newval + oldval }
         end
+
+        if targets.any?(&:app_target?)
+          workspace.projects.each do |pr|
+            next if pr == self
+
+            hs.merge!(pr.all_product_headers) { |_, v1, v2| v1 + v2 }
+          end
+        end
+        @all_product_headers = hs
       end
 
       define_method(:all_non_framework_target_headers) do
@@ -37,13 +46,13 @@ module HMap
         hs = targets.inject({}) do |sum, entry|
           sum.merge!(entry.project_headers) { |_, v1, _| v1 }
         end
-        # if targets.any?(&:app_target?)
-        #   workspace.projects.each do |pr|
-        #     next if pr == self
+        if targets.any?(&:app_target?)
+          workspace.projects.each do |pr|
+            next if pr == self
 
-        #     hs.merge!(pr.project_headers) { |_, v1, _| v1 }
-        #   end
-        # end
+            hs.merge!(pr.project_headers) { |_, v1, _| v1 }
+          end
+        end
         @project_headers = project_entrys.inject(hs) do |sum, entry|
           sum.merge!(entry.project_buckets_extra) { |_, v1, _| v1 }
         end

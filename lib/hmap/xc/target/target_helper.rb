@@ -94,7 +94,7 @@ module HMap
       def build_dir
         return @build_dir if defined?(@build_dir)
 
-        b_d = xcconfig_paths.none? { |path| XCConfig.new(path).attributes[Constants::CONFIGURATION_BUILD_DIR].nil? }
+        b_d = build_setting_paths.none? { |path| XCConfig.new(path).attributes[Constants::CONFIGURATION_BUILD_DIR].nil? }
         @build_dir = target_name if b_d
       end
 

@@ -10,6 +10,10 @@ module HMap
       @real_path = file
       @virtual_path = File.join(build_dir, File.basename(file))
     end
+
+    def eql?(other)
+      other.real_path == real_path && other.virtual_path == virtual_path
+    end
   end
 
   class TargetPlatformVFS

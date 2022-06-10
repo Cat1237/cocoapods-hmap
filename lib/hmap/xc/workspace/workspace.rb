@@ -96,7 +96,9 @@ module HMap
 
             s_path = PBXHelper.group_paths(bcr)
             x = bcr.instance_variable_get('@simple_attributes_hash')['path'] || ''
-            File.expand_path(File.join(project.project_dir, s_path, x))
+            path = File.expand_path(File.join(project.project_dir, s_path, x))
+            target.xcconfig_paths << path
+            path
           end.compact
         end
       end.uniq
