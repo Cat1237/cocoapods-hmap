@@ -1,5 +1,6 @@
 # frozen_string_literal: false
-
+require 'stringio'
+require 'fileutils' 
 module HMap
   # A collection of utility functions used throughout cocoapods-hmap.
   module Utils

@@ -57,6 +57,8 @@ module HMap
           end
         end
         UserInterface.puts "\n[hmapfile-from-json] finish"
+      rescue Object => exception
+          UserInterface.puts "#{exception}".red
       end
     end
   end
